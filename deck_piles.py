@@ -4,7 +4,10 @@ import argparse
 import io
 import json
 import logging
+import os
 import re
+import shutil
+import subprocess
 import sys
 import time
 from pathlib import Path
@@ -23,10 +26,37 @@ CARD_VERTICAL_GAP = 12
 CARD_HORIZONTAL_GAP = 6
 SECTION_GAP = 24
 RIGHT_MARGIN = 40
-BADGE_FONT = ImageFont.truetype("C:/Windows/Fonts/arialbd.ttf", 22)
-HEADER_FONT = ImageFont.truetype("C:/Windows/Fonts/arialbd.ttf", 26)
-SECTION_FONT = ImageFont.truetype("C:/Windows/Fonts/arialbd.ttf", 18)
-TYPE_FONT = ImageFont.truetype("C:/Windows/Fonts/arialbd.ttf", 15)
+
+
+def load_font(size: int, bold: bool = False) -> ImageFont.ImageFont:
+    configured_path = os.environ.get("MTG_FONT_PATH")
+    if configured_path and Path(configured_path).exists():
+        return ImageFont.truetype(configured_path, size)
+    if os.name == "nt":
+        windows_font_dir = Path(os.environ.get("WINDIR", "C:/Windows")) / "Fonts"
+        windows_font = windows_font_dir / ("arialbd.ttf" if bold else "arial.ttf")
+        if windows_font.exists():
+            return ImageFont.truetype(windows_font, size)
+    fc_match = shutil.which("fc-match")
+    if fc_match:
+        families = ("Arial:style=Bold", "Arial", "sans-serif:style=Bold", "sans-serif") if bold else ("Arial", "sans-serif")
+        for family in families:
+            result = subprocess.run(
+                [fc_match, "-f", "%{file}", family],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            font_path = Path(result.stdout.strip())
+            if result.returncode == 0 and font_path.exists():
+                return ImageFont.truetype(font_path, size)
+    return ImageFont.load_default(size=size)
+
+
+BADGE_FONT = load_font(22, bold=True)
+HEADER_FONT = load_font(26, bold=True)
+SECTION_FONT = load_font(18, bold=True)
+TYPE_FONT = load_font(15, bold=True)
 CATEGORY_NAMES = ("Creatures", "Sorceries", "Instants", "Artifacts", "Other", "Lands")
 SYMBOL_DIR = Path(__file__).parent / "mana_symbols"
 CARD_TYPE_SYMBOL_DIR = Path(__file__).parent / "card_type_symbols"

@@ -64,3 +64,12 @@ Options:
 Cards are sorted left-to-right by type: creatures, sorceries, instants, artifacts, other types, then lands. Duplicate entries are shown once with a quantity badge. When columns overlap horizontally, the badge moves to the bottom-left of the card to remain visible. Card images and Scryfall metadata are cached in `.card_cache`; a failed lookup is retried three times and causes the render to fail rather than producing an incomplete image.
 
 The `mana_symbols/` and `card_type_symbols/` PNG assets are included in the repository and are used in the generated header. Use `make_background_skeleton.py` to generate a `1600x1400` layout guide for designing a custom background.
+
+### Font selection
+
+The script discovers a system sans-serif font automatically. To use a specific `.ttf` or `.otf` file, set `MTG_FONT_PATH` before running it:
+
+```powershell
+$env:MTG_FONT_PATH = "C:\Fonts\MyFont.ttf"
+python deck_piles.py decklist.txt
+```
