@@ -1,0 +1,19 @@
+# Python environments and generated files
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Local card downloads and metadata
+.card_cache/
+
+# Generated deck renders
+*.png
+!background.png
+!card_type_symbols/*.png
+!mana_symbols/*.png
+# Local tooling
+.vscode/
+.DS_Store
+Thumbs.db
