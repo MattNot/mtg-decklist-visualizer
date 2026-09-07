@@ -15,17 +15,17 @@ from pathlib import Path
 import requests
 from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
 
-CARD_W = 180
-CARD_H = 251
-CANVAS_W = 1600
-CANVAS_H = 1400
+CARD_W = 135
+CARD_H = 188
+CANVAS_W = 1080
+CANVAS_H = 1440
 CACHE_DIR = Path(".card_cache")
 TOP_MARGIN = 120
-BOTTOM_MARGIN = 70
-CARD_VERTICAL_GAP = 12
-CARD_HORIZONTAL_GAP = 6
-SECTION_GAP = 24
-RIGHT_MARGIN = 40
+BOTTOM_MARGIN = 45
+CARD_VERTICAL_GAP = 10
+CARD_HORIZONTAL_GAP = 5
+SECTION_GAP = 18
+RIGHT_MARGIN = 30
 
 
 def load_font(size: int, bold: bool = False) -> ImageFont.ImageFont:
@@ -449,7 +449,7 @@ def main() -> None:
     parser.add_argument("decklist", type=Path, help="Text file containing quantities and card names")
     parser.add_argument("-o", "--output", type=Path, help="Output PNG path; defaults to the deck name")
     parser.add_argument("-b", "--background", type=Path, help="Optional background image", default="background.png")
-    parser.add_argument("-c", "--columns", type=int, default=6, help="Number of piles across the image")
+    parser.add_argument("-c", "--columns", type=int, default=5, help="Number of piles across the image")
     parser.add_argument("--title", help="Override the title from the decklist About section")
     parser.add_argument("--quiet", action="store_true", help="Show only the final result")
     args = parser.parse_args()

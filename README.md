@@ -57,13 +57,13 @@ Options:
 
 - `-b, --background`: background image, default `background.png`
 - `-o, --output`: output PNG path, default derived from the deck name
-- `-c, --columns`: main-deck columns, default `6`; columns expand to fill the space before the sideboard
+- `-c, --columns`: main-deck columns, default `5`; columns expand to fill the space before the sideboard
 - `--title`: override the title from the `About` section
 - `--quiet`: show only the final result
 
 Cards are sorted left-to-right by type: creatures, sorceries, instants, artifacts, other types, then lands. Duplicate entries are shown once with a quantity badge. When columns overlap horizontally, the badge moves to the bottom-left of the card to remain visible. Card images and Scryfall metadata are cached in `.card_cache`; a failed lookup is retried three times and causes the render to fail rather than producing an incomplete image.
 
-The `mana_symbols/` and `card_type_symbols/` PNG assets are included in the repository and are used in the generated header. Use `make_background_skeleton.py` to generate a `1600x1400` layout guide for designing a custom background.
+The `mana_symbols/` and `card_type_symbols/` PNG assets are included in the repository and are used in the generated header. The generated image uses a `1080x1440` vertical layout for social media posts. Use `make_background_skeleton.py` to generate a layout guide for designing a custom background.
 
 ### Font selection
 
