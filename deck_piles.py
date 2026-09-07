@@ -325,7 +325,10 @@ def render_group(
     row_count = (len(cards) + column_count - 1) // column_count
     horizontal_step = (right - left - CARD_W) / max(1, column_count - 1)
     available_height = bottom - top - CARD_H
-    vertical_step = available_height / max(1, row_count - 1) if row_count > 1 else 0
+    vertical_step = min(
+        CARD_H + CARD_VERTICAL_GAP,
+        available_height / max(1, row_count - 1),
+    )
     cards_overlap_horizontally = horizontal_step < CARD_W + CARD_HORIZONTAL_GAP
     draw = ImageDraw.Draw(canvas, "RGBA")
 

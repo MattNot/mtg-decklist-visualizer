@@ -38,7 +38,7 @@ def draw_group(
 ) -> None:
     column_count = max(1, min(columns, len(entries)))
     row_count = (len(entries) + column_count - 1) // column_count
-    vertical_step = max(
+    vertical_step = min(
         CARD_H + 12,
         (bottom - top - CARD_H) / max(1, row_count - 1),
     )
