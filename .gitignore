@@ -13,6 +13,10 @@ __pycache__/
 !background.png
 !card_type_symbols/*.png
 !mana_symbols/*.png
+!figma-export/
+!figma-export/figma-export/
+!figma-export/figma-export/images/
+!figma-export/figma-export/images/*.png
 # Local tooling
 .vscode/
 .DS_Store

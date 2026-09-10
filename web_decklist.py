@@ -13,6 +13,7 @@ from deck_piles import (
     card_category,
     card_type_symbol,
     fetch_card,
+    fetch_card_art,
     parse_decklist,
     parse_decklist_settings,
     safe_filename,
@@ -23,10 +24,31 @@ DEFAULT_TEMPLATE = ROOT / "figma-export" / "figma-export" / "prova-decklist.html
 DEFAULT_OUTPUT = DEFAULT_TEMPLATE
 CACHE_DIR = ROOT / ".card_cache"
 IMAGE_DIR = DEFAULT_TEMPLATE.parent / "images"
+EXPORT_WIDTH = 1080
+EXPORT_HEIGHT = 1440
+CARD_RATIO = 63 / 88
+MAIN_GRID_WIDTH = 467.14
+GRID_HEIGHT = 684
+ROW_GAP = 8
+COLUMN_GAP = 4
 
 
 def relative_asset(path: Path, output: Path) -> str:
     return Path(os.path.relpath(path, output.parent)).as_posix()
+
+
+def choose_columns(card_count: int) -> int:
+    if card_count <= 0:
+        return 1
+    candidates = range(1, min(card_count, 8) + 1)
+
+    def card_width(columns: int) -> float:
+        rows = (card_count + columns - 1) // columns
+        width_by_columns = (MAIN_GRID_WIDTH - COLUMN_GAP * (columns - 1)) / columns
+        width_by_rows = ((GRID_HEIGHT - ROW_GAP * (rows - 1)) / rows) * CARD_RATIO
+        return min(width_by_columns, width_by_rows)
+
+    return max(candidates, key=card_width)
 
 
 def load_cards(entries: list[tuple[int, str]], session: requests.Session) -> list[dict[str, object]]:
@@ -89,12 +111,7 @@ def render_section(
     summary = render_type_summary(cards, output)
     section_class = name.lower().replace(" ", "-")
     rows = (len(cards) + columns - 1) // columns if cards else 0
-    style = f"--columns:{columns}"
-    if rows > 4:
-        available_height = 684
-        card_height = (available_height - 8 * (rows - 1)) / rows
-        card_width = card_height * 94 / 128
-        style += f";--card-width:{card_width:.2f}px"
+    style = f"--columns:{columns};--rows:{rows}"
     return f'<section class="card-panel {section_class}" style="{style}"><div class="card-grid">{card_markup}</div></section>'
 
 
@@ -114,10 +131,11 @@ def write_page(
     event: str,
     output: Path,
     columns: int,
+    thumbnail_path: Path = IMAGE_DIR / "thumbnail.png",
 ) -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
     logo = html.escape(relative_asset(IMAGE_DIR / "logo-lpc-letter-white.png", output), quote=True)
-    thumbnail = html.escape(relative_asset(IMAGE_DIR / "thumbnail.png", output), quote=True)
+    thumbnail = html.escape(relative_asset(thumbnail_path, output), quote=True)
     safe_title = html.escape(title)
     safe_author = html.escape(author)
     safe_event = html.escape(event)
@@ -152,9 +170,9 @@ def write_page(
     .card-panel {{ align-self: start; padding: 12px 10px 16px; border-radius: 3px; }}
     .main-deck {{ background: rgba(164, 63, 56, .08); }}
     .sideboard {{ background: rgba(90, 90, 90, .08); }}
-    .card-grid {{ display: grid; grid-template-columns: repeat(var(--columns), minmax(0, var(--card-width, 1fr))); justify-content: center; align-content: start; gap: 8px 4px; }}
+    .card-grid {{ display: grid; grid-template-columns: repeat(var(--columns), minmax(0, var(--card-width, 1fr))); justify-content: space-between; align-content: start; height: 684px; gap: 8px 4px; }}
     .sideboard {{ --columns: 2 !important; }}
-    .card {{ position: relative; width: 100%; min-width: 0; aspect-ratio: 94 / 128; overflow: visible; border: 0; border-radius: 4px; box-shadow: 3px 4px 2px rgba(0,0,0,.45); background: linear-gradient(#f1f1f1, #e6e6e6); }}
+    .card {{ position: relative; width: 100%; min-width: 0; aspect-ratio: 63 / 88; overflow: visible; border: 0; border-radius: 4px; box-shadow: 3px 4px 2px rgba(0,0,0,.45); background: linear-gradient(#f1f1f1, #e6e6e6); }}
     .card:hover {{ z-index: 2; transform: translateY(-3px); }}
     .card img {{ display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 0; }}
     .copies {{ position: absolute; right: 0; top: 0; display: grid; place-items: center; min-width: 25px; height: 23px; padding: 0 4px; background: #fff; color: var(--ink); font: 700 14px/1 var(--font-family-helvetica-neue), sans-serif; }}
@@ -188,11 +206,32 @@ def write_page(
         const baseWidth = 768;
         const baseHeight = 1024;
         const exportScale = 1.40625;
+        const fitCards = () => {{
+            const canvasRect = canvas.getBoundingClientRect();
+            const scale = canvasRect.width / canvas.offsetWidth;
+            document.querySelectorAll('.card-panel').forEach((panel) => {{
+                const grid = panel.querySelector('.card-grid');
+                const columns = Number.parseInt(getComputedStyle(panel).getPropertyValue('--columns'), 10);
+                const cards = grid.querySelectorAll('.card').length;
+                if (!grid || !columns || !cards) return;
+                const rows = Math.ceil(cards / columns);
+                const gridRect = grid.getBoundingClientRect();
+                const styles = getComputedStyle(grid);
+                const columnGap = parseFloat(styles.columnGap) * scale;
+                const rowGap = parseFloat(styles.rowGap) * scale;
+                const availableWidth = gridRect.width / scale;
+                const availableHeight = (canvasRect.bottom - gridRect.top) / scale;
+                const widthByColumns = (availableWidth - columnGap * (columns - 1)) / columns;
+                const widthByRows = ((availableHeight - rowGap * (rows - 1)) / rows) * 63 / 88;
+                grid.style.setProperty('--card-width', `${{Math.max(0, Math.min(widthByColumns, widthByRows))}}px`);
+            }});
+        }};
         const resizeCanvas = () => {{
             const scale = Math.min(exportScale, window.innerWidth / baseWidth);
             canvas.style.setProperty('--canvas-scale', scale);
             document.body.style.width = `${{baseWidth * scale}}px`;
             document.body.style.height = `${{baseHeight * scale}}px`;
+            fitCards();
         }};
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
@@ -214,17 +253,31 @@ def export_image(page_path: Path, image_path: Path) -> None:
 
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
-        page = browser.new_page(viewport={"width": 1080, "height": 1440}, device_scale_factor=1)
+        page = browser.new_page(
+            viewport={"width": EXPORT_WIDTH, "height": EXPORT_HEIGHT},
+            device_scale_factor=1,
+        )
         page.goto(page_path.resolve().as_uri(), wait_until="networkidle")
-        page.screenshot(path=str(image_path), full_page=False)
+        page.screenshot(
+            path=str(image_path),
+            full_page=False,
+            clip={"x": 0, "y": 0, "width": EXPORT_WIDTH, "height": EXPORT_HEIGHT},
+        )
         browser.close()
+    from PIL import Image
+
+    with Image.open(image_path) as image:
+        if image.size != (EXPORT_WIDTH, EXPORT_HEIGHT):
+            raise RuntimeError(
+                f"Expected a {EXPORT_WIDTH}x{EXPORT_HEIGHT} PNG, got {image.width}x{image.height}"
+            )
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Generate the Figma-style MTG decklist page.")
     parser.add_argument("decklist", type=Path, nargs="?", default=ROOT / "decklist.txt")
     parser.add_argument("-o", "--output", type=Path, default=DEFAULT_OUTPUT)
-    parser.add_argument("-c", "--columns", type=int, default=5)
+    parser.add_argument("-c", "--columns", default="5", help="Main-deck columns, or 'auto' to maximize card size")
     parser.add_argument("--author", help="Override the pilot from the decklist About section")
     parser.add_argument("--event", help="Override the event from the decklist About section")
     parser.add_argument("--title", help="Override the deck title")
@@ -237,19 +290,28 @@ def main() -> None:
         default="./decklist_new.png",
     )
     args = parser.parse_args()
-    if args.columns < 1:
-        parser.error("--columns must be at least 1")
+    if args.columns.lower() != "auto":
+        try:
+            columns = int(args.columns)
+        except ValueError:
+            parser.error("--columns must be a positive integer or 'auto'")
+        if columns < 1:
+            parser.error("--columns must be at least 1")
 
     main_entries, side_entries, deck_name = parse_decklist(args.decklist)
+    columns = choose_columns(len(main_entries)) if args.columns.lower() == "auto" else int(args.columns)
     settings = parse_decklist_settings(args.decklist)
     title = args.title or settings.get("name") or deck_name or "MTG deck"
     author = args.author or settings.get("pilot") or settings.get("author") or "Giovanni Mancini"
     event = args.event or settings.get("event") or "1° Tappa - Autumn Season 1 | Lega Pauper Cosenza"
     session = requests.Session()
     session.headers["User-Agent"] = "mtg-decklist-web/1.0 (personal use)"
+    thumbnail_path = IMAGE_DIR / "thumbnail.png"
+    if settings.get("thumbnail"):
+        thumbnail_path.write_bytes(fetch_card_art(settings["thumbnail"], session).read_bytes())
     main_cards = load_cards(main_entries, session)
     side_cards = load_cards(side_entries, session)
-    write_page(main_cards, side_cards, title, author, event, args.output, args.columns)
+    write_page(main_cards, side_cards, title, author, event, args.output, columns, thumbnail_path)
     if args.export_image:
         image_output = (
             args.output.with_suffix(".png")

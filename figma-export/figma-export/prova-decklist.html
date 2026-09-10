@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Decklist di Izzet Spellementals">
-  <title>Izzet Spellementals | Lega Pauper Cosenza</title>
+  <meta name="description" content="Decklist di Mono-R Madness">
+  <title>Mono-R Madness | Lega Pauper Cosenza</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    :root { --columns: 4; --brick: #a43f38; --ink: #7e332d; --canvas-scale: 1.40625; --header-split: 67.8%; }
+    :root { --columns: 3; --brick: #a43f38; --ink: #7e332d; --canvas-scale: 1.40625; --header-split: 67.8%; }
     html, body { width: 100%; min-height: 100%; overflow-x: hidden; overflow-y: auto; }
     .prova-decklist-1 { width: 768px; height: 1024px; overflow: hidden; transform: scale(var(--canvas-scale)); transform-origin: top left; background: #f8f7f7; color: white; }
     .header-74 { position: relative; height: 292px; overflow: hidden; background: var(--brick); }
@@ -29,9 +29,9 @@
     .card-panel { align-self: start; padding: 12px 10px 16px; border-radius: 3px; }
     .main-deck { background: rgba(164, 63, 56, .08); }
     .sideboard { background: rgba(90, 90, 90, .08); }
-    .card-grid { display: grid; grid-template-columns: repeat(var(--columns), minmax(0, var(--card-width, 1fr))); justify-content: center; align-content: start; gap: 8px 4px; }
+    .card-grid { display: grid; grid-template-columns: repeat(var(--columns), minmax(0, var(--card-width, 1fr))); justify-content: space-between; align-content: start; height: 684px; gap: 8px 4px; }
     .sideboard { --columns: 2 !important; }
-    .card { position: relative; width: 100%; min-width: 0; aspect-ratio: 94 / 128; overflow: visible; border: 0; border-radius: 4px; box-shadow: 3px 4px 2px rgba(0,0,0,.45); background: linear-gradient(#f1f1f1, #e6e6e6); }
+    .card { position: relative; width: 100%; min-width: 0; aspect-ratio: 63 / 88; overflow: visible; border: 0; border-radius: 4px; box-shadow: 3px 4px 2px rgba(0,0,0,.45); background: linear-gradient(#f1f1f1, #e6e6e6); }
     .card:hover { z-index: 2; transform: translateY(-3px); }
     .card img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
     .copies { position: absolute; right: 0; top: 0; display: grid; place-items: center; min-width: 25px; height: 23px; padding: 0 4px; background: #fff; color: var(--ink); font: 700 14px/1 var(--font-family-helvetica-neue), sans-serif; }
@@ -44,44 +44,33 @@
       <img class="header-thumb" src="images/thumbnail.png" alt="">
       <div class="header-content">
         <img class="header-logo" src="images/logo-lpc-letter-white.png" alt="Lega Pauper Cosenza">
-        <h1 class="header-title">Izzet Spellementals</h1>
-        <p class="header-author">Giovanni Mancini</p>
-        <p class="header-event">1° Tappa - Autumn Season 1 | Lega Pauper Cosenza</p>
+        <h1 class="header-title">Mono-R Madness</h1>
+        <p class="header-author">Michele Alitto</p>
+        <p class="header-event">2° Tappa - Autumn Season 1 | Lega Pauper Cosenza</p>
       </div>
             <div class="header-stats">
-                <div class="deck-stat"><div class="stat-label">MAIN DECK / 60 Carte</div><div class="type-summary"><span class="type-count"><img src="../../card_type_symbols/creature.png" alt="">11</span><span class="type-count"><img src="../../card_type_symbols/sorcery.png" alt="">10</span><span class="type-count"><img src="../../card_type_symbols/instant.png" alt="">17</span><span class="type-count"><img src="../../card_type_symbols/artifact.png" alt="">2</span><span class="type-count"><img src="../../card_type_symbols/land.png" alt="">20</span></div></div>
-                <div class="deck-stat"><div class="stat-label">SIDEBOARD / 15 Carte</div><div class="type-summary"><span class="type-count"><img src="../../card_type_symbols/creature.png" alt="">5</span><span class="type-count"><img src="../../card_type_symbols/sorcery.png" alt="">2</span><span class="type-count"><img src="../../card_type_symbols/instant.png" alt="">6</span><span class="type-count"><img src="../../card_type_symbols/artifact.png" alt="">2</span></div></div>
+                <div class="deck-stat"><div class="stat-label">MAIN DECK / 60 Carte</div><div class="type-summary"><span class="type-count"><img src="../../card_type_symbols/creature.png" alt="">12</span><span class="type-count"><img src="../../card_type_symbols/sorcery.png" alt="">12</span><span class="type-count"><img src="../../card_type_symbols/instant.png" alt="">16</span><span class="type-count"><img src="../../card_type_symbols/land.png" alt="">20</span></div></div>
+                <div class="deck-stat"><div class="stat-label">SIDEBOARD / 15 Carte</div><div class="type-summary"><span class="type-count"><img src="../../card_type_symbols/sorcery.png" alt="">3</span><span class="type-count"><img src="../../card_type_symbols/instant.png" alt="">7</span><span class="type-count"><img src="../../card_type_symbols/artifact.png" alt="">5</span></div></div>
             </div>
     </header>
     <div class="body-2">
-            <section class="card-panel main-deck" style="--columns:4;--card-width:95.76px"><div class="card-grid"><article class="card" title="Eddymurk Crab - Creature — Elemental Crab"><img src="../../.card_cache/eddymurk_crab.jpg" alt="Eddymurk Crab" loading="lazy"><span class="copies">x4</span></article>
-<article class="card" title="Hearth Elemental - Creature — Elemental // Sorcery — Adventure"><img src="../../.card_cache/hearth_elemental.jpg" alt="Hearth Elemental" loading="lazy"><span class="copies">x4</span></article>
-<article class="card" title="Sunderflock - Creature — Elemental"><img src="../../.card_cache/sunderflock.jpg" alt="Sunderflock" loading="lazy"><span class="copies">x3</span></article>
-<article class="card" title="Flow State - Sorcery"><img src="../../.card_cache/flow_state.jpg" alt="Flow State" loading="lazy"><span class="copies">x4</span></article>
-<article class="card" title="Impractical Joke - Sorcery"><img src="../../.card_cache/impractical_joke.jpg" alt="Impractical Joke" loading="lazy"><span class="copies">x2</span></article>
-<article class="card" title="Sleight of Hand - Sorcery"><img src="../../.card_cache/sleight_of_hand.jpg" alt="Sleight of Hand" loading="lazy"><span class="copies">x4</span></article>
-<article class="card" title="Burst Lightning - Instant"><img src="../../.card_cache/burst_lightning.jpg" alt="Burst Lightning" loading="lazy"><span class="copies">x3</span></article>
-<article class="card" title="Get Out - Instant"><img src="../../.card_cache/get_out.jpg" alt="Get Out" loading="lazy"><span class="copies">x2</span></article>
-<article class="card" title="Opt - Instant"><img src="../../.card_cache/opt.jpg" alt="Opt" loading="lazy"><span class="copies">x4</span></article>
-<article class="card" title="Prismari Charm - Instant"><img src="../../.card_cache/prismari_charm.jpg" alt="Prismari Charm" loading="lazy"><span class="copies">x4</span></article>
-<article class="card" title="Spell Snare - Instant"><img src="../../.card_cache/spell_snare.jpg" alt="Spell Snare" loading="lazy"><span class="copies">x2</span></article>
-<article class="card" title="Traumatic Critique - Instant"><img src="../../.card_cache/traumatic_critique.jpg" alt="Traumatic Critique" loading="lazy"><span class="copies">x2</span></article>
-<article class="card" title="Ghost Vacuum - Artifact"><img src="../../.card_cache/ghost_vacuum.jpg" alt="Ghost Vacuum" loading="lazy"><span class="copies">x2</span></article>
-<article class="card" title="Island - Basic Land — Island"><img src="../../.card_cache/island.jpg" alt="Island" loading="lazy"><span class="copies">x6</span></article>
-<article class="card" title="Multiversal Passage - Land"><img src="../../.card_cache/multiversal_passage.jpg" alt="Multiversal Passage" loading="lazy"></article>
-<article class="card" title="Riverpyre Verge - Land"><img src="../../.card_cache/riverpyre_verge.jpg" alt="Riverpyre Verge" loading="lazy"><span class="copies">x4</span></article>
-<article class="card" title="Spirebluff Canal - Land"><img src="../../.card_cache/spirebluff_canal.jpg" alt="Spirebluff Canal" loading="lazy"><span class="copies">x4</span></article>
-<article class="card" title="Steam Vents - Land — Island Mountain"><img src="../../.card_cache/steam_vents.jpg" alt="Steam Vents" loading="lazy"><span class="copies">x4</span></article>
-<article class="card" title="Stormcarved Coast - Land"><img src="../../.card_cache/stormcarved_coast.jpg" alt="Stormcarved Coast" loading="lazy"></article></div></section>
-            <section class="card-panel sideboard" style="--columns:2;--card-width:95.76px"><div class="card-grid"><article class="card" title="Colorstorm Stallion - Creature — Elemental Horse"><img src="../../.card_cache/colorstorm_stallion.jpg" alt="Colorstorm Stallion" loading="lazy"><span class="copies">x4</span></article>
-<article class="card" title="Sunderflock - Creature — Elemental"><img src="../../.card_cache/sunderflock.jpg" alt="Sunderflock" loading="lazy"></article>
-<article class="card" title="Slagstorm - Sorcery"><img src="../../.card_cache/slagstorm.jpg" alt="Slagstorm" loading="lazy"><span class="copies">x2</span></article>
-<article class="card" title="Broadside Barrage - Instant"><img src="../../.card_cache/broadside_barrage.jpg" alt="Broadside Barrage" loading="lazy"></article>
-<article class="card" title="Disdainful Stroke - Instant"><img src="../../.card_cache/disdainful_stroke.jpg" alt="Disdainful Stroke" loading="lazy"></article>
-<article class="card" title="Flashfreeze - Instant"><img src="../../.card_cache/flashfreeze.jpg" alt="Flashfreeze" loading="lazy"></article>
-<article class="card" title="Spell Pierce - Instant"><img src="../../.card_cache/spell_pierce.jpg" alt="Spell Pierce" loading="lazy"><span class="copies">x2</span></article>
-<article class="card" title="Spell Snare - Instant"><img src="../../.card_cache/spell_snare.jpg" alt="Spell Snare" loading="lazy"></article>
-<article class="card" title="Ghost Vacuum - Artifact"><img src="../../.card_cache/ghost_vacuum.jpg" alt="Ghost Vacuum" loading="lazy"><span class="copies">x2</span></article></div></section>
+            <section class="card-panel main-deck" style="--columns:3;--rows:4"><div class="card-grid"><article class="card" title="Guttersnipe - Creature — Goblin Shaman"><img src="../../.card_cache/guttersnipe.jpg" alt="Guttersnipe" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Kessig Flamebreather - Creature — Human Shaman"><img src="../../.card_cache/kessig_flamebreather.jpg" alt="Kessig Flamebreather" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Sneaky Snacker - Creature — Faerie Rogue"><img src="../../.card_cache/sneaky_snacker.jpg" alt="Sneaky Snacker" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Faithless Looting - Sorcery"><img src="../../.card_cache/faithless_looting.jpg" alt="Faithless Looting" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Grab the Prize - Sorcery"><img src="../../.card_cache/grab_the_prize.jpg" alt="Grab the Prize" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Highway Robbery - Sorcery"><img src="../../.card_cache/highway_robbery.jpg" alt="Highway Robbery" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Fiery Temper - Instant"><img src="../../.card_cache/fiery_temper.jpg" alt="Fiery Temper" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Fireblast - Instant"><img src="../../.card_cache/fireblast.jpg" alt="Fireblast" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Lava Dart - Instant"><img src="../../.card_cache/lava_dart.jpg" alt="Lava Dart" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Lightning Bolt - Instant"><img src="../../.card_cache/lightning_bolt.jpg" alt="Lightning Bolt" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Mountain - Basic Land — Mountain"><img src="../../.card_cache/mountain.jpg" alt="Mountain" loading="lazy"><span class="copies">x20</span></article></div></section>
+            <section class="card-panel sideboard" style="--columns:2;--rows:3"><div class="card-grid"><article class="card" title="End the Festivities - Sorcery"><img src="../../.card_cache/end_the_festivities.jpg" alt="End the Festivities" loading="lazy"><span class="copies">x3</span></article>
+<article class="card" title="Breath Weapon - Instant"><img src="../../.card_cache/breath_weapon.jpg" alt="Breath Weapon" loading="lazy"></article>
+<article class="card" title="Pyroblast - Instant"><img src="../../.card_cache/pyroblast.jpg" alt="Pyroblast" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Red Elemental Blast - Instant"><img src="../../.card_cache/red_elemental_blast.jpg" alt="Red Elemental Blast" loading="lazy"><span class="copies">x2</span></article>
+<article class="card" title="Campfire - Artifact"><img src="../../.card_cache/campfire.jpg" alt="Campfire" loading="lazy"><span class="copies">x2</span></article>
+<article class="card" title="Relic of Progenitus - Artifact"><img src="../../.card_cache/relic_of_progenitus.jpg" alt="Relic of Progenitus" loading="lazy"><span class="copies">x3</span></article></div></section>
     </div>
   </main>
 </body>
@@ -91,11 +80,32 @@
         const baseWidth = 768;
         const baseHeight = 1024;
         const exportScale = 1.40625;
+        const fitCards = () => {
+            const canvasRect = canvas.getBoundingClientRect();
+            const scale = canvasRect.width / canvas.offsetWidth;
+            document.querySelectorAll('.card-panel').forEach((panel) => {
+                const grid = panel.querySelector('.card-grid');
+                const columns = Number.parseInt(getComputedStyle(panel).getPropertyValue('--columns'), 10);
+                const cards = grid.querySelectorAll('.card').length;
+                if (!grid || !columns || !cards) return;
+                const rows = Math.ceil(cards / columns);
+                const gridRect = grid.getBoundingClientRect();
+                const styles = getComputedStyle(grid);
+                const columnGap = parseFloat(styles.columnGap) * scale;
+                const rowGap = parseFloat(styles.rowGap) * scale;
+                const availableWidth = gridRect.width / scale;
+                const availableHeight = (canvasRect.bottom - gridRect.top) / scale;
+                const widthByColumns = (availableWidth - columnGap * (columns - 1)) / columns;
+                const widthByRows = ((availableHeight - rowGap * (rows - 1)) / rows) * 63 / 88;
+                grid.style.setProperty('--card-width', `${Math.max(0, Math.min(widthByColumns, widthByRows))}px`);
+            });
+        };
         const resizeCanvas = () => {
             const scale = Math.min(exportScale, window.innerWidth / baseWidth);
             canvas.style.setProperty('--canvas-scale', scale);
             document.body.style.width = `${baseWidth * scale}px`;
             document.body.style.height = `${baseHeight * scale}px`;
+            fitCards();
         };
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);

@@ -130,7 +130,7 @@ def parse_decklist_settings(path: Path) -> dict[str, str]:
             in_about = False
             continue
         if in_about:
-            setting_match = re.match(r"^(name|pilot|author|event)\s+(.+?)\s*$", line, re.IGNORECASE)
+            setting_match = re.match(r"^(name|pilot|author|event|thumbnail)\s+(.+?)\s*$", line, re.IGNORECASE)
             if setting_match:
                 settings[setting_match.group(1).lower()] = setting_match.group(2).strip()
     return settings
@@ -194,6 +194,70 @@ def fetch_card(name: str, session: requests.Session) -> tuple[Image.Image, str, 
                 LOGGER.info("Retrying %s in %.1f seconds", name, delay)
                 time.sleep(delay)
     raise last_error or requests.RequestException(f"Could not fetch {name}")
+
+
+def fetch_card_art(name: str, session: requests.Session) -> Path:
+    CACHE_DIR.mkdir(exist_ok=True)
+    last_error: requests.RequestException | None = None
+    for attempt in range(SCRYFALL_RETRIES):
+        try:
+            LOGGER.info("Fetching artwork versions for %s from Scryfall", name)
+            cards: list[dict[str, object]] = []
+            next_page = "https://api.scryfall.com/cards/search"
+            params: dict[str, str] | None = {"q": f'!"{name}"', "unique": "prints"}
+            while next_page:
+                response = session.get(next_page, params=params, timeout=20)
+                response.raise_for_status()
+                payload = response.json()
+                cards.extend(card for card in payload.get("data", []) if card.get("image_uris", {}).get("art_crop"))
+                next_page = payload.get("next_page") if payload.get("has_more") else ""
+                params = None
+            if not cards:
+                raise ValueError(f"Scryfall returned no artwork versions for {name}")
+            if len(cards) == 1:
+                selected = 0
+            else:
+                print(f"\nArtwork disponibili per {name}:")
+                for index, card in enumerate(cards, start=1):
+                    print(
+                        f"  {index}. {card.get('set_name', card.get('set', 'unknown set'))} "
+                        f"({card.get('set', '')}, #{card.get('collector_number', '?')}) - "
+                        f"{card.get('released_at', 'data sconosciuta')}\n"
+                        f"     {card.get('scryfall_uri', 'link non disponibile')}"
+                    )
+                while True:
+                    try:
+                        selected = int(input("Scegli il numero dell'artwork da usare: ")) - 1
+                    except ValueError:
+                        print("Inserisci un numero valido.")
+                        continue
+                    if 0 <= selected < len(cards):
+                        break
+                    print(f"Scegli un numero tra 1 e {len(cards)}.")
+            card = cards[selected]
+            image_url = card["image_uris"]["art_crop"]
+            cache_name = f"{name}_{card.get('set', 'unknown')}_{card.get('collector_number', selected)}"
+            cache_path = CACHE_DIR / f"{safe_filename(cache_name)[:-4]}_art.jpg"
+            if not cache_path.exists():
+                image_response = session.get(str(image_url), timeout=30)
+                image_response.raise_for_status()
+                cache_path.write_bytes(image_response.content)
+                LOGGER.info("Fetched and cached artwork: %s", cache_path.name)
+            else:
+                LOGGER.info("Artwork cache hit: %s", cache_path.name)
+            return cache_path
+        except requests.RequestException as error:
+            last_error = error
+            LOGGER.warning("Scryfall artwork request failed for %s: %s", name, error)
+            if attempt < SCRYFALL_RETRIES - 1:
+                retry_after = response.headers.get("Retry-After", "") if "response" in locals() else ""
+                try:
+                    delay = max(1.0, float(retry_after))
+                except ValueError:
+                    delay = 2.0 ** attempt
+                LOGGER.info("Retrying artwork for %s in %.1f seconds", name, delay)
+                time.sleep(delay)
+    raise last_error or requests.RequestException(f"Could not fetch artwork for {name}")
 
 
 def card_category(type_line: str) -> int:

@@ -29,13 +29,14 @@ python -m pip install -r requirements.txt
 
 ## Decklist format
 
-Use one card per line. Quantities are optional. An optional `About` section can define the deck name, pilot, and event with `Name`, `Pilot`, and `Event`. `Author` is accepted as an alias for `Pilot`. Sideboard headers can be written as `SIDEBOARD:`, `sideboard`, `# Sideboard`, or `#SIDEBOARD`.
+Use one card per line. Quantities are optional. An optional `About` section can define the deck name, pilot, event, and header artwork with `Name`, `Pilot`, `Event`, and `Thumbnail`. `Thumbnail` is a card name: the web generator downloads its Scryfall `art_crop` image and caches it locally. `Author` is accepted as an alias for `Pilot`. Sideboard headers can be written as `SIDEBOARD:`, `sideboard`, `# Sideboard`, or `#SIDEBOARD`.
 
 ```text
 About
 Name Mono-Blue Terror
 Pilot Mario Rossi
 Event 1° Tappa - Autumn Season 1 | Lega Pauper Cosenza
+Thumbnail Mountain
 
 Deck
 4 Lightning Bolt
@@ -69,13 +70,13 @@ The `mana_symbols/` and `card_type_symbols/` PNG assets are included in the repo
 
 ## Generate the web page
 
-The Figma-style page reuses the same parser, Scryfall cache, card sorting, and quantity handling as the image renderer. The generated header reads `Name`, `Pilot`, and `Event` from the `About` section. The command-line options `--title`, `--author`, and `--event` override the corresponding values from the decklist.
+The Figma-style page reuses the same parser, Scryfall cache, card sorting, and quantity handling as the image renderer. The generated header reads `Name`, `Pilot`, `Event`, and `Thumbnail` from the `About` section. When `Thumbnail` is present, the generator lists all Scryfall printings with artwork and asks which one to use; the selected `art_crop` image is downloaded only if it is not already cached. The command-line options `--title`, `--author`, and `--event` override the corresponding values from the decklist.
 
 ```powershell
 python web_decklist.py decklist.txt
 ```
 
-This updates `figma-export/figma-export/prova-decklist.html`. Open that file in a browser to view the generated page. Use `--author`, `--event`, `--title`, or `-o` to customize the page metadata and output location.
+This updates `figma-export/figma-export/prova-decklist.html`. Open that file in a browser to view the generated page. Use `--author`, `--event`, `--title`, or `-o` to customize the page metadata and output location. Use `--columns auto` to calculate the column count that produces the largest proportional cards for the current deck.
 
 To export the same page as a `1080x1440` PNG, install the browser runtime once and use:
 

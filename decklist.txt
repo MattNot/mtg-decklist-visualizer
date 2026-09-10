@@ -1,36 +1,27 @@
 About
-Name Izzet Spellementals
-Pilot Giovanni Mancini
-Event 1° Tappa - Autumn Season 1 | Lega Pauper Cosenza
+Name Mono-R Madness
+Pilot Michele Alitto
+Event 2° Tappa - Autumn Season 1 | Lega Pauper Cosenza
+Thumbnail Guttersnipe
 
-Deck
-4 Eddymurk Crab
-4 Flow State
-2 Get Out
-4 Hearth Elemental
-2 Impractical Joke
-1 Multiversal Passage
-3 Sunderflock
-4 Prismari Charm
-4 Spirebluff Canal
-1 Stormcarved Coast
-4 Steam Vents
-4 Sleight of Hand
-4 Opt
-2 Traumatic Critique
-6 Island
-2 Spell Snare
-3 Burst Lightning
-4 Riverpyre Verge
-2 Ghost Vacuum
+deck
+4 Faithless Looting
+4 Fiery Temper
+4 Fireblast
+4 Grab the Prize
+4 Guttersnipe
+4 Highway Robbery
+4 Kessig Flamebreather
+4 Lava Dart
+4 Lightning Bolt
+20 Mountain
+4 Sneaky Snacker
+
 
 Sideboard
-1 Broadside Barrage
-1 Flashfreeze
-1 Disdainful Stroke
-4 Colorstorm Stallion
-2 Slagstorm
-1 Spell Snare
-2 Spell Pierce
-2 Ghost Vacuum
-1 Sunderflock
+2 Campfire
+3 End the Festivities
+1 Breath Weapon
+4 Pyroblast
+2 Red Elemental Blast
+3 Relic of Progenitus
