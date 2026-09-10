@@ -115,6 +115,27 @@ def parse_decklist(path: Path) -> tuple[list[tuple[int, str]], list[tuple[int, s
     return main_deck, sideboard, deck_name
 
 
+def parse_decklist_settings(path: Path) -> dict[str, str]:
+    settings: dict[str, str] = {}
+    in_about = False
+    for raw_line in path.read_text(encoding="utf-8-sig").splitlines():
+        line = raw_line.strip()
+        if not line:
+            continue
+        section_name = line.lstrip("#").strip().rstrip(":").strip().lower()
+        if section_name == "about":
+            in_about = True
+            continue
+        if section_name in {"deck", "main", "mainboard", "sideboard"}:
+            in_about = False
+            continue
+        if in_about:
+            setting_match = re.match(r"^(name|pilot|author|event)\s+(.+?)\s*$", line, re.IGNORECASE)
+            if setting_match:
+                settings[setting_match.group(1).lower()] = setting_match.group(2).strip()
+    return settings
+
+
 def safe_filename(name: str) -> str:
     return re.sub(r"[^a-z0-9]+", "_", name.lower()).strip("_") + ".jpg"
 

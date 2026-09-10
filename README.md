@@ -29,11 +29,13 @@ python -m pip install -r requirements.txt
 
 ## Decklist format
 
-Use one card per line. Quantities are optional. An optional `About` section can define the deck title with `Name`. Sideboard headers can be written as `SIDEBOARD:`, `sideboard`, `# Sideboard`, or `#SIDEBOARD`.
+Use one card per line. Quantities are optional. An optional `About` section can define the deck name, pilot, and event with `Name`, `Pilot`, and `Event`. `Author` is accepted as an alias for `Pilot`. Sideboard headers can be written as `SIDEBOARD:`, `sideboard`, `# Sideboard`, or `#SIDEBOARD`.
 
 ```text
 About
 Name Mono-Blue Terror
+Pilot Mario Rossi
+Event 1° Tappa - Autumn Season 1 | Lega Pauper Cosenza
 
 Deck
 4 Lightning Bolt
@@ -64,6 +66,26 @@ Options:
 Cards are sorted left-to-right by type: creatures, sorceries, instants, artifacts, other types, then lands. Duplicate entries are shown once with a quantity badge. When columns overlap horizontally, the badge moves to the bottom-left of the card to remain visible. Card images and Scryfall metadata are cached in `.card_cache`; a failed lookup is retried three times and causes the render to fail rather than producing an incomplete image.
 
 The `mana_symbols/` and `card_type_symbols/` PNG assets are included in the repository and are used in the generated header. The generated image uses a `1080x1440` vertical layout for social media posts. Use `make_background_skeleton.py` to generate a layout guide for designing a custom background.
+
+## Generate the web page
+
+The Figma-style page reuses the same parser, Scryfall cache, card sorting, and quantity handling as the image renderer. The generated header reads `Name`, `Pilot`, and `Event` from the `About` section. The command-line options `--title`, `--author`, and `--event` override the corresponding values from the decklist.
+
+```powershell
+python web_decklist.py decklist.txt
+```
+
+This updates `figma-export/figma-export/prova-decklist.html`. Open that file in a browser to view the generated page. Use `--author`, `--event`, `--title`, or `-o` to customize the page metadata and output location.
+
+To export the same page as a `1080x1440` PNG, install the browser runtime once and use:
+
+```powershell
+python -m pip install -r requirements.txt
+python -m playwright install chromium
+python web_decklist.py decklist.txt --export-image
+```
+
+The PNG is written next to the HTML output, unless a path is supplied after `--export-image`.
 
 ### Font selection
 
