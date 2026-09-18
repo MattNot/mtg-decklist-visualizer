@@ -21,8 +21,25 @@ from web_decklist import (
 )
 
 DEFAULT_RESPONSIVE_OUTPUT = ROOT / "figma-export" / "figma-export" / "responsive-decklist.html"
-DEFAULT_WIDTH = 1080
-DEFAULT_HEIGHT = 1440
+EXPORT_PRESETS = {
+  "1": ("Portrait 4:5", 1080, 1350),
+  "2": ("Portrait 3:4", 1080, 1440),
+  "3": ("Square 1:1", 1080, 1080),
+  "4": ("Landscape 1.91:1", 1080, 566),
+  "5": ("Reels & Stories 9:16", 1080, 1920),
+}
+
+
+def choose_export_dimensions() -> tuple[int, int]:
+  print("Choose an export format (press Enter for Portrait 3:4):")
+  for key, (name, width, height) in EXPORT_PRESETS.items():
+    recommended = " (recommended)" if key == "2" else ""
+    print(f"  {key}. {name}: {width}x{height}{recommended}")
+  choice = input("Format [2]: ").strip() or "2"
+  if choice not in EXPORT_PRESETS:
+    raise ValueError("invalid export format")
+  _, width, height = EXPORT_PRESETS[choice]
+  return width, height
 
 
 def write_responsive_page(
@@ -172,10 +189,17 @@ def main() -> None:
     parser.add_argument("--author")
     parser.add_argument("--event")
     parser.add_argument("--title")
-    parser.add_argument("--export-width", type=int, default=DEFAULT_WIDTH)
-    parser.add_argument("--export-height", type=int, default=DEFAULT_HEIGHT)
+    parser.add_argument("--export-width", type=int)
+    parser.add_argument("--export-height", type=int)
     parser.add_argument("--export-image", nargs="?", const="auto", metavar="PNG", default="./responsive-decklist.png")
     args = parser.parse_args()
+    if (args.export_width is None) != (args.export_height is None):
+      parser.error("--export-width and --export-height must be provided together")
+    if args.export_width is None:
+      try:
+        args.export_width, args.export_height = choose_export_dimensions()
+      except (EOFError, ValueError):
+        parser.error("invalid export format; choose a number from 1 to 5")
     if args.export_width < 1 or args.export_height < 1:
         parser.error("export dimensions must be positive")
     main_entries, side_entries, deck_name = parse_decklist(args.decklist)
