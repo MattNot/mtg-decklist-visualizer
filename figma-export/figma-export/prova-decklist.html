@@ -3,13 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Decklist di Mono-R Madness">
-  <title>Mono-R Madness | Lega Pauper Cosenza</title>
+  <meta name="description" content="Decklist di Pinger Tron">
+  <title>Pinger Tron | Lega Pauper Cosenza</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    :root { --columns: 3; --brick: #a43f38; --ink: #7e332d; --canvas-scale: 1.40625; --header-split: 67.8%; }
-    html, body { width: 100%; min-height: 100%; overflow-x: hidden; overflow-y: auto; }
-    .prova-decklist-1 { width: 768px; height: 1024px; overflow: hidden; transform: scale(var(--canvas-scale)); transform-origin: top left; background: #f8f7f7; color: white; }
+        @font-face { font-family: "Deck Helvetica"; src: url("../../fonts/Helvetica.ttc") format("truetype"); font-weight: 100 900; font-style: normal; }
+        @font-face { font-family: "Deck DIN Condensed"; src: url("../../fonts/DIN Condensed Bold.ttf") format("truetype"); font-weight: 700; font-style: normal; }
+        :root { --columns: 5; --brick: #a43f38; --ink: #7e332d; --canvas-scale-x: 1.40625; --canvas-scale-y: 1.40625; --header-split: 67.8%; --font-family-helvetica-neue: "Deck Helvetica", sans-serif; --font-family-din-condensed: "Deck DIN Condensed", sans-serif; }
+    html, body { width: 100%; min-height: 100%; overflow: hidden; }
+        body { position: relative; font-family: var(--font-family-helvetica-neue); background: #f8f7f7; }
+        .prova-decklist-1 { position: absolute; width: 768px; height: 1024px; overflow: hidden; transform: scale(var(--canvas-scale-x), var(--canvas-scale-y)); transform-origin: top left; background: #f8f7f7; color: white; }
     .header-74 { position: relative; height: 292px; overflow: hidden; background: var(--brick); }
     .header-74::after { content: ""; position: absolute; left: 0; right: 0; top: 211px; height: 81px; background: linear-gradient(to right, rgba(91, 31, 28, .4) 0 var(--header-split), rgba(49, 22, 21, .62) var(--header-split) 100%); pointer-events: none; }
     .header-content { position: relative; z-index: 1; height: 211px; padding: 32px 34px 0; }
@@ -21,7 +24,7 @@
     .header-stats { position: absolute; z-index: 2; left: 34px; right: 34px; bottom: 0; display: grid; grid-template-columns: 5fr 2fr; gap: 0; height: 81px; }
     .deck-stat { padding: 15px 0 0; }
     .deck-stat + .deck-stat { padding-left: 0; }
-    .stat-label { margin-bottom: 9px; font: 700 14px/1.1 var(--font-family-helvetica-neue), sans-serif; }
+    .stat-label { margin-bottom: 9px; font: 700 14px/1.1 var(--font-family-din-condensed), sans-serif; }
     .type-summary { display: flex; flex-wrap: wrap; gap: 15px; align-items: center; }
     .type-count { display: inline-flex; align-items: center; gap: 5px; font-size: 16px; }
     .type-count img { width: 22px; height: 22px; object-fit: contain; }
@@ -33,7 +36,7 @@
     .sideboard { --columns: 2 !important; }
     .card { position: relative; width: 100%; min-width: 0; aspect-ratio: 63 / 88; overflow: visible; border: 0; border-radius: 4px; box-shadow: 3px 4px 2px rgba(0,0,0,.45); background: linear-gradient(#f1f1f1, #e6e6e6); }
     .card:hover { z-index: 2; transform: translateY(-3px); }
-    .card img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
+    .card img { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 0; }
     .copies { position: absolute; right: 0; top: 0; display: grid; place-items: center; min-width: 25px; height: 23px; padding: 0 4px; background: #fff; color: var(--ink); font: 700 14px/1 var(--font-family-helvetica-neue), sans-serif; }
     @media (max-width: 600px) { .prova-decklist-1 { min-height: 100vh; } .header-content { padding-left: 22px; padding-right: 22px; } .header-title { font-size: clamp(28px, 5.6vw, 43px); } .header-event { left: 122px; max-width: 210px; font-size: 11px; } .header-logo { left: 22px; width: 88px; } .header-stats { left: 22px; right: 22px; } .body-2 { gap: 10px; padding-left: 22px; padding-right: 22px; } .deck-stat + .deck-stat { padding-left: 12px; } .type-summary { gap: 8px; } }
   </style>
@@ -44,33 +47,45 @@
       <img class="header-thumb" src="images/thumbnail.png" alt="">
       <div class="header-content">
         <img class="header-logo" src="images/logo-lpc-letter-white.png" alt="Lega Pauper Cosenza">
-        <h1 class="header-title">Mono-R Madness</h1>
-        <p class="header-author">Michele Alitto</p>
+        <h1 class="header-title">Pinger Tron</h1>
+        <p class="header-author">Salvatore Postella</p>
         <p class="header-event">2° Tappa - Autumn Season 1 | Lega Pauper Cosenza</p>
       </div>
             <div class="header-stats">
-                <div class="deck-stat"><div class="stat-label">MAIN DECK / 60 Carte</div><div class="type-summary"><span class="type-count"><img src="../../card_type_symbols/creature.png" alt="">12</span><span class="type-count"><img src="../../card_type_symbols/sorcery.png" alt="">12</span><span class="type-count"><img src="../../card_type_symbols/instant.png" alt="">16</span><span class="type-count"><img src="../../card_type_symbols/land.png" alt="">20</span></div></div>
-                <div class="deck-stat"><div class="stat-label">SIDEBOARD / 15 Carte</div><div class="type-summary"><span class="type-count"><img src="../../card_type_symbols/sorcery.png" alt="">3</span><span class="type-count"><img src="../../card_type_symbols/instant.png" alt="">7</span><span class="type-count"><img src="../../card_type_symbols/artifact.png" alt="">5</span></div></div>
+                <div class="deck-stat"><div class="stat-label">MAIN DECK / 60 Carte</div><div class="type-summary"><span class="type-count"><img src="../../card_type_symbols/creature.png" alt="">8</span><span class="type-count"><img src="../../card_type_symbols/sorcery.png" alt="">1</span><span class="type-count"><img src="../../card_type_symbols/instant.png" alt="">7</span><span class="type-count"><img src="../../card_type_symbols/artifact.png" alt="">27</span><span class="type-count"><img src="../../card_type_symbols/land.png" alt="">17</span></div></div>
+                <div class="deck-stat"><div class="stat-label">SIDEBOARD / 15 Carte</div><div class="type-summary"><span class="type-count"><img src="../../card_type_symbols/instant.png" alt="">13</span><span class="type-count"><img src="../../card_type_symbols/artifact.png" alt="">2</span></div></div>
             </div>
     </header>
     <div class="body-2">
-            <section class="card-panel main-deck" style="--columns:3;--rows:4"><div class="card-grid"><article class="card" title="Guttersnipe - Creature — Goblin Shaman"><img src="../../.card_cache/guttersnipe.jpg" alt="Guttersnipe" loading="lazy"><span class="copies">x4</span></article>
-<article class="card" title="Kessig Flamebreather - Creature — Human Shaman"><img src="../../.card_cache/kessig_flamebreather.jpg" alt="Kessig Flamebreather" loading="lazy"><span class="copies">x4</span></article>
-<article class="card" title="Sneaky Snacker - Creature — Faerie Rogue"><img src="../../.card_cache/sneaky_snacker.jpg" alt="Sneaky Snacker" loading="lazy"><span class="copies">x4</span></article>
-<article class="card" title="Faithless Looting - Sorcery"><img src="../../.card_cache/faithless_looting.jpg" alt="Faithless Looting" loading="lazy"><span class="copies">x4</span></article>
-<article class="card" title="Grab the Prize - Sorcery"><img src="../../.card_cache/grab_the_prize.jpg" alt="Grab the Prize" loading="lazy"><span class="copies">x4</span></article>
-<article class="card" title="Highway Robbery - Sorcery"><img src="../../.card_cache/highway_robbery.jpg" alt="Highway Robbery" loading="lazy"><span class="copies">x4</span></article>
-<article class="card" title="Fiery Temper - Instant"><img src="../../.card_cache/fiery_temper.jpg" alt="Fiery Temper" loading="lazy"><span class="copies">x4</span></article>
-<article class="card" title="Fireblast - Instant"><img src="../../.card_cache/fireblast.jpg" alt="Fireblast" loading="lazy"><span class="copies">x4</span></article>
-<article class="card" title="Lava Dart - Instant"><img src="../../.card_cache/lava_dart.jpg" alt="Lava Dart" loading="lazy"><span class="copies">x4</span></article>
-<article class="card" title="Lightning Bolt - Instant"><img src="../../.card_cache/lightning_bolt.jpg" alt="Lightning Bolt" loading="lazy"><span class="copies">x4</span></article>
-<article class="card" title="Mountain - Basic Land — Mountain"><img src="../../.card_cache/mountain.jpg" alt="Mountain" loading="lazy"><span class="copies">x20</span></article></div></section>
-            <section class="card-panel sideboard" style="--columns:2;--rows:3"><div class="card-grid"><article class="card" title="End the Festivities - Sorcery"><img src="../../.card_cache/end_the_festivities.jpg" alt="End the Festivities" loading="lazy"><span class="copies">x3</span></article>
-<article class="card" title="Breath Weapon - Instant"><img src="../../.card_cache/breath_weapon.jpg" alt="Breath Weapon" loading="lazy"></article>
-<article class="card" title="Pyroblast - Instant"><img src="../../.card_cache/pyroblast.jpg" alt="Pyroblast" loading="lazy"><span class="copies">x4</span></article>
-<article class="card" title="Red Elemental Blast - Instant"><img src="../../.card_cache/red_elemental_blast.jpg" alt="Red Elemental Blast" loading="lazy"><span class="copies">x2</span></article>
-<article class="card" title="Campfire - Artifact"><img src="../../.card_cache/campfire.jpg" alt="Campfire" loading="lazy"><span class="copies">x2</span></article>
-<article class="card" title="Relic of Progenitus - Artifact"><img src="../../.card_cache/relic_of_progenitus.jpg" alt="Relic of Progenitus" loading="lazy"><span class="copies">x3</span></article></div></section>
+            <section class="card-panel main-deck" style="--columns:5;--rows:5"><div class="card-grid"><article class="card" title="Bramble Wurm - Creature — Wurm"><img src="../../.card_cache/bramble_wurm.jpg" alt="Bramble Wurm" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Mysidian Elder - Creature — Human Wizard"><img src="../../.card_cache/mysidian_elder.jpg" alt="Mysidian Elder" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Kaervek&#x27;s Torch - Sorcery"><img src="../../.card_cache/kaervek_s_torch.jpg" alt="Kaervek&#x27;s Torch" loading="lazy"></article>
+<article class="card" title="Crop Rotation - Instant"><img src="../../.card_cache/crop_rotation.jpg" alt="Crop Rotation" loading="lazy"></article>
+<article class="card" title="Eviscerator&#x27;s Insight - Instant"><img src="../../.card_cache/eviscerator_s_insight.jpg" alt="Eviscerator&#x27;s Insight" loading="lazy"><span class="copies">x2</span></article>
+<article class="card" title="Ghostly Flicker - Instant"><img src="../../.card_cache/ghostly_flicker.jpg" alt="Ghostly Flicker" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Barrels of Blasting Jelly - Artifact"><img src="../../.card_cache/barrels_of_blasting_jelly.jpg" alt="Barrels of Blasting Jelly" loading="lazy"></article>
+<article class="card" title="Black Mage&#x27;s Rod - Artifact — Equipment"><img src="../../.card_cache/black_mage_s_rod.jpg" alt="Black Mage&#x27;s Rod" loading="lazy"><span class="copies">x2</span></article>
+<article class="card" title="Bonder&#x27;s Ornament - Artifact"><img src="../../.card_cache/bonder_s_ornament.jpg" alt="Bonder&#x27;s Ornament" loading="lazy"></article>
+<article class="card" title="Candy Trail - Artifact — Food Clue"><img src="../../.card_cache/candy_trail.jpg" alt="Candy Trail" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Cryogen Relic - Artifact"><img src="../../.card_cache/cryogen_relic.jpg" alt="Cryogen Relic" loading="lazy"><span class="copies">x2</span></article>
+<article class="card" title="Expedition Map - Artifact"><img src="../../.card_cache/expedition_map.jpg" alt="Expedition Map" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Giant&#x27;s Boulder - Artifact"><img src="../../.card_cache/giant_s_boulder.jpg" alt="Giant&#x27;s Boulder" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Lembas - Artifact — Food"><img src="../../.card_cache/lembas.jpg" alt="Lembas" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Nihil Spellbomb - Artifact"><img src="../../.card_cache/nihil_spellbomb.jpg" alt="Nihil Spellbomb" loading="lazy"></article>
+<article class="card" title="Prophetic Prism - Artifact"><img src="../../.card_cache/prophetic_prism.jpg" alt="Prophetic Prism" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Bojuka Bog - Land"><img src="../../.card_cache/bojuka_bog.jpg" alt="Bojuka Bog" loading="lazy"></article>
+<article class="card" title="Conduit Pylons - Land — Desert"><img src="../../.card_cache/conduit_pylons.jpg" alt="Conduit Pylons" loading="lazy"></article>
+<article class="card" title="Forest - Basic Land — Forest"><img src="../../.card_cache/forest.jpg" alt="Forest" loading="lazy"></article>
+<article class="card" title="Island - Basic Land — Island"><img src="../../.card_cache/island.jpg" alt="Island" loading="lazy"></article>
+<article class="card" title="Polluted Mire - Land"><img src="../../.card_cache/polluted_mire.jpg" alt="Polluted Mire" loading="lazy"></article>
+<article class="card" title="Urza&#x27;s Mine - Land — Urza&#x27;s Mine"><img src="../../.card_cache/urza_s_mine.jpg" alt="Urza&#x27;s Mine" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Urza&#x27;s Power Plant - Land — Urza&#x27;s Power-Plant"><img src="../../.card_cache/urza_s_power_plant.jpg" alt="Urza&#x27;s Power Plant" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Urza&#x27;s Tower - Land — Urza&#x27;s Tower"><img src="../../.card_cache/urza_s_tower.jpg" alt="Urza&#x27;s Tower" loading="lazy"><span class="copies">x4</span></article></div></section>
+            <section class="card-panel sideboard" style="--columns:2;--rows:3"><div class="card-grid"><article class="card" title="Cast Down - Instant"><img src="../../.card_cache/cast_down.jpg" alt="Cast Down" loading="lazy"><span class="copies">x3</span></article>
+<article class="card" title="Fiery cannonade - Instant"><img src="../../.card_cache/fiery_cannonade.jpg" alt="Fiery cannonade" loading="lazy"><span class="copies">x2</span></article>
+<article class="card" title="Hydroblast - Instant"><img src="../../.card_cache/hydroblast.jpg" alt="Hydroblast" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Moment&#x27;s Peace - Instant"><img src="../../.card_cache/moment_s_peace.jpg" alt="Moment&#x27;s Peace" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Nihil Spellbomb - Artifact"><img src="../../.card_cache/nihil_spellbomb.jpg" alt="Nihil Spellbomb" loading="lazy"><span class="copies">x2</span></article></div></section>
     </div>
   </main>
 </body>
@@ -79,10 +94,13 @@
         const canvas = document.querySelector('.prova-decklist-1');
         const baseWidth = 768;
         const baseHeight = 1024;
-        const exportScale = 1.40625;
+        const exportWidth = 1000;
+        const exportHeight = 1000;
+        const exportScale = 0.9765625;
         const fitCards = () => {
             const canvasRect = canvas.getBoundingClientRect();
-            const scale = canvasRect.width / canvas.offsetWidth;
+            const scaleX = canvasRect.width / canvas.offsetWidth;
+            const scaleY = canvasRect.height / canvas.offsetHeight;
             document.querySelectorAll('.card-panel').forEach((panel) => {
                 const grid = panel.querySelector('.card-grid');
                 const columns = Number.parseInt(getComputedStyle(panel).getPropertyValue('--columns'), 10);
@@ -91,20 +109,28 @@
                 const rows = Math.ceil(cards / columns);
                 const gridRect = grid.getBoundingClientRect();
                 const styles = getComputedStyle(grid);
-                const columnGap = parseFloat(styles.columnGap) * scale;
-                const rowGap = parseFloat(styles.rowGap) * scale;
-                const availableWidth = gridRect.width / scale;
-                const availableHeight = (canvasRect.bottom - gridRect.top) / scale;
+                const columnGap = parseFloat(styles.columnGap);
+                const rowGap = parseFloat(styles.rowGap);
+                const availableWidth = gridRect.width / scaleX;
+                const availableHeight = (canvasRect.bottom - gridRect.top) / scaleY;
                 const widthByColumns = (availableWidth - columnGap * (columns - 1)) / columns;
                 const widthByRows = ((availableHeight - rowGap * (rows - 1)) / rows) * 63 / 88;
                 grid.style.setProperty('--card-width', `${Math.max(0, Math.min(widthByColumns, widthByRows))}px`);
             });
         };
         const resizeCanvas = () => {
-            const scale = Math.min(exportScale, window.innerWidth / baseWidth);
-            canvas.style.setProperty('--canvas-scale', scale);
-            document.body.style.width = `${baseWidth * scale}px`;
-            document.body.style.height = `${baseHeight * scale}px`;
+            const scale = Math.min(
+                exportScale,
+                window.innerWidth / baseWidth,
+                window.innerHeight / baseHeight,
+            );
+            const isExportViewport = window.innerWidth === exportWidth && window.innerHeight === exportHeight;
+            canvas.style.setProperty('--canvas-scale-x', isExportViewport ? exportScale : scale);
+            canvas.style.setProperty('--canvas-scale-y', isExportViewport ? exportScale : scale);
+            document.body.style.width = `${isExportViewport ? exportWidth : baseWidth * scale}px`;
+            document.body.style.height = `${isExportViewport ? exportHeight : baseHeight * scale}px`;
+            canvas.style.left = `${isExportViewport ? (exportWidth - baseWidth * exportScale) / 2 : 0}px`;
+            canvas.style.top = `${isExportViewport ? (exportHeight - baseHeight * exportScale) / 2 : 0}px`;
             fitCards();
         };
         resizeCanvas();

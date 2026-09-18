@@ -1,27 +1,38 @@
 About
-Name Mono-R Madness
-Pilot Michele Alitto
+name Pinger Tron
+pilot Salvatore Postella
 Event 2° Tappa - Autumn Season 1 | Lega Pauper Cosenza
-Thumbnail Guttersnipe
+Thumbnail Mysidian Elder
 
-deck
-4 Faithless Looting
-4 Fiery Temper
-4 Fireblast
-4 Grab the Prize
-4 Guttersnipe
-4 Highway Robbery
-4 Kessig Flamebreather
-4 Lava Dart
-4 Lightning Bolt
-20 Mountain
-4 Sneaky Snacker
-
+Deck
+4 Giant's Boulder
+1 Barrels of Blasting Jelly
+2 Black Mage's Rod
+1 Bojuka Bog
+1 Bonder's Ornament
+4 Bramble Wurm
+4 Candy Trail
+1 Conduit Pylons
+1 Crop Rotation
+2 Cryogen Relic
+2 Eviscerator's Insight
+4 Expedition Map
+1 Forest
+4 Ghostly Flicker
+1 Island
+1 Kaervek's Torch
+4 Lembas
+4 Mysidian Elder
+1 Nihil Spellbomb
+1 Polluted Mire
+4 Prophetic Prism
+4 Urza's Mine
+4 Urza's Power Plant
+4 Urza's Tower
 
 Sideboard
-2 Campfire
-3 End the Festivities
-1 Breath Weapon
-4 Pyroblast
-2 Red Elemental Blast
-3 Relic of Progenitus
+2 Fiery cannonade
+3 Cast Down
+4 Hydroblast
+4 Moment's Peace
+2 Nihil Spellbomb

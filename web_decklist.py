@@ -20,12 +20,17 @@ from deck_piles import (
 )
 
 ROOT = Path(__file__).parent
+FONT_DIR = ROOT / "fonts"
+DIN_FONT = FONT_DIR / "DIN Condensed Bold.ttf"
+HELVETICA_FONT = FONT_DIR / "Helvetica.ttc"
 DEFAULT_TEMPLATE = ROOT / "figma-export" / "figma-export" / "prova-decklist.html"
 DEFAULT_OUTPUT = DEFAULT_TEMPLATE
 CACHE_DIR = ROOT / ".card_cache"
 IMAGE_DIR = DEFAULT_TEMPLATE.parent / "images"
 EXPORT_WIDTH = 1080
 EXPORT_HEIGHT = 1440
+BASE_WIDTH = 768
+BASE_HEIGHT = 1024
 CARD_RATIO = 63 / 88
 MAIN_GRID_WIDTH = 467.14
 GRID_HEIGHT = 684
@@ -131,11 +136,16 @@ def write_page(
     event: str,
     output: Path,
     columns: int,
+    export_width: int,
+    export_height: int,
     thumbnail_path: Path = IMAGE_DIR / "thumbnail.png",
 ) -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
     logo = html.escape(relative_asset(IMAGE_DIR / "logo-lpc-letter-white.png", output), quote=True)
     thumbnail = html.escape(relative_asset(thumbnail_path, output), quote=True)
+    din_font = html.escape(relative_asset(DIN_FONT, output), quote=True)
+    helvetica_font = html.escape(relative_asset(HELVETICA_FONT, output), quote=True)
+    export_scale = min(export_width / BASE_WIDTH, export_height / BASE_HEIGHT)
     safe_title = html.escape(title)
     safe_author = html.escape(author)
     safe_event = html.escape(event)
@@ -148,9 +158,12 @@ def write_page(
   <title>{safe_title} | Lega Pauper Cosenza</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    :root {{ --columns: {columns}; --brick: #a43f38; --ink: #7e332d; --canvas-scale: 1.40625; --header-split: 67.8%; }}
-    html, body {{ width: 100%; min-height: 100%; overflow-x: hidden; overflow-y: auto; }}
-    .prova-decklist-1 {{ width: 768px; height: 1024px; overflow: hidden; transform: scale(var(--canvas-scale)); transform-origin: top left; background: #f8f7f7; color: white; }}
+        @font-face {{ font-family: "Deck Helvetica"; src: url("{helvetica_font}") format("truetype"); font-weight: 100 900; font-style: normal; }}
+        @font-face {{ font-family: "Deck DIN Condensed"; src: url("{din_font}") format("truetype"); font-weight: 700; font-style: normal; }}
+        :root {{ --columns: {columns}; --brick: #a43f38; --ink: #7e332d; --canvas-scale-x: 1.40625; --canvas-scale-y: 1.40625; --header-split: 67.8%; --font-family-helvetica-neue: "Deck Helvetica", sans-serif; --font-family-din-condensed: "Deck DIN Condensed", sans-serif; }}
+    html, body {{ width: 100%; min-height: 100%; overflow: hidden; }}
+        body {{ position: relative; font-family: var(--font-family-helvetica-neue); background: #f8f7f7; }}
+        .prova-decklist-1 {{ position: absolute; width: 768px; height: 1024px; overflow: hidden; transform: scale(var(--canvas-scale-x), var(--canvas-scale-y)); transform-origin: top left; background: #f8f7f7; color: white; }}
     .header-74 {{ position: relative; height: 292px; overflow: hidden; background: var(--brick); }}
     .header-74::after {{ content: ""; position: absolute; left: 0; right: 0; top: 211px; height: 81px; background: linear-gradient(to right, rgba(91, 31, 28, .4) 0 var(--header-split), rgba(49, 22, 21, .62) var(--header-split) 100%); pointer-events: none; }}
     .header-content {{ position: relative; z-index: 1; height: 211px; padding: 32px 34px 0; }}
@@ -162,7 +175,7 @@ def write_page(
     .header-stats {{ position: absolute; z-index: 2; left: 34px; right: 34px; bottom: 0; display: grid; grid-template-columns: 5fr 2fr; gap: 0; height: 81px; }}
     .deck-stat {{ padding: 15px 0 0; }}
     .deck-stat + .deck-stat {{ padding-left: 0; }}
-    .stat-label {{ margin-bottom: 9px; font: 700 14px/1.1 var(--font-family-helvetica-neue), sans-serif; }}
+    .stat-label {{ margin-bottom: 9px; font: 700 14px/1.1 var(--font-family-din-condensed), sans-serif; }}
     .type-summary {{ display: flex; flex-wrap: wrap; gap: 15px; align-items: center; }}
     .type-count {{ display: inline-flex; align-items: center; gap: 5px; font-size: 16px; }}
     .type-count img {{ width: 22px; height: 22px; object-fit: contain; }}
@@ -174,7 +187,7 @@ def write_page(
     .sideboard {{ --columns: 2 !important; }}
     .card {{ position: relative; width: 100%; min-width: 0; aspect-ratio: 63 / 88; overflow: visible; border: 0; border-radius: 4px; box-shadow: 3px 4px 2px rgba(0,0,0,.45); background: linear-gradient(#f1f1f1, #e6e6e6); }}
     .card:hover {{ z-index: 2; transform: translateY(-3px); }}
-    .card img {{ display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 0; }}
+    .card img {{ display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 0; }}
     .copies {{ position: absolute; right: 0; top: 0; display: grid; place-items: center; min-width: 25px; height: 23px; padding: 0 4px; background: #fff; color: var(--ink); font: 700 14px/1 var(--font-family-helvetica-neue), sans-serif; }}
     @media (max-width: 600px) {{ .prova-decklist-1 {{ min-height: 100vh; }} .header-content {{ padding-left: 22px; padding-right: 22px; }} .header-title {{ font-size: clamp(28px, 5.6vw, 43px); }} .header-event {{ left: 122px; max-width: 210px; font-size: 11px; }} .header-logo {{ left: 22px; width: 88px; }} .header-stats {{ left: 22px; right: 22px; }} .body-2 {{ gap: 10px; padding-left: 22px; padding-right: 22px; }} .deck-stat + .deck-stat {{ padding-left: 12px; }} .type-summary {{ gap: 8px; }} }}
   </style>
@@ -203,12 +216,15 @@ def write_page(
 <script>
     (() => {{
         const canvas = document.querySelector('.prova-decklist-1');
-        const baseWidth = 768;
-        const baseHeight = 1024;
-        const exportScale = 1.40625;
+        const baseWidth = {BASE_WIDTH};
+        const baseHeight = {BASE_HEIGHT};
+        const exportWidth = {export_width};
+        const exportHeight = {export_height};
+        const exportScale = {export_scale};
         const fitCards = () => {{
             const canvasRect = canvas.getBoundingClientRect();
-            const scale = canvasRect.width / canvas.offsetWidth;
+            const scaleX = canvasRect.width / canvas.offsetWidth;
+            const scaleY = canvasRect.height / canvas.offsetHeight;
             document.querySelectorAll('.card-panel').forEach((panel) => {{
                 const grid = panel.querySelector('.card-grid');
                 const columns = Number.parseInt(getComputedStyle(panel).getPropertyValue('--columns'), 10);
@@ -217,20 +233,28 @@ def write_page(
                 const rows = Math.ceil(cards / columns);
                 const gridRect = grid.getBoundingClientRect();
                 const styles = getComputedStyle(grid);
-                const columnGap = parseFloat(styles.columnGap) * scale;
-                const rowGap = parseFloat(styles.rowGap) * scale;
-                const availableWidth = gridRect.width / scale;
-                const availableHeight = (canvasRect.bottom - gridRect.top) / scale;
+                const columnGap = parseFloat(styles.columnGap);
+                const rowGap = parseFloat(styles.rowGap);
+                const availableWidth = gridRect.width / scaleX;
+                const availableHeight = (canvasRect.bottom - gridRect.top) / scaleY;
                 const widthByColumns = (availableWidth - columnGap * (columns - 1)) / columns;
                 const widthByRows = ((availableHeight - rowGap * (rows - 1)) / rows) * 63 / 88;
                 grid.style.setProperty('--card-width', `${{Math.max(0, Math.min(widthByColumns, widthByRows))}}px`);
             }});
         }};
         const resizeCanvas = () => {{
-            const scale = Math.min(exportScale, window.innerWidth / baseWidth);
-            canvas.style.setProperty('--canvas-scale', scale);
-            document.body.style.width = `${{baseWidth * scale}}px`;
-            document.body.style.height = `${{baseHeight * scale}}px`;
+            const scale = Math.min(
+                exportScale,
+                window.innerWidth / baseWidth,
+                window.innerHeight / baseHeight,
+            );
+            const isExportViewport = window.innerWidth === exportWidth && window.innerHeight === exportHeight;
+            canvas.style.setProperty('--canvas-scale-x', isExportViewport ? exportScale : scale);
+            canvas.style.setProperty('--canvas-scale-y', isExportViewport ? exportScale : scale);
+            document.body.style.width = `${{isExportViewport ? exportWidth : baseWidth * scale}}px`;
+            document.body.style.height = `${{isExportViewport ? exportHeight : baseHeight * scale}}px`;
+            canvas.style.left = `${{isExportViewport ? (exportWidth - baseWidth * exportScale) / 2 : 0}}px`;
+            canvas.style.top = `${{isExportViewport ? (exportHeight - baseHeight * exportScale) / 2 : 0}}px`;
             fitCards();
         }};
         resizeCanvas();
@@ -242,7 +266,7 @@ def write_page(
     output.write_text(page, encoding="utf-8")
 
 
-def export_image(page_path: Path, image_path: Path) -> None:
+def export_image(page_path: Path, image_path: Path, export_width: int, export_height: int) -> None:
     try:
         from playwright.sync_api import sync_playwright
     except ImportError as error:
@@ -254,22 +278,22 @@ def export_image(page_path: Path, image_path: Path) -> None:
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
         page = browser.new_page(
-            viewport={"width": EXPORT_WIDTH, "height": EXPORT_HEIGHT},
+            viewport={"width": export_width, "height": export_height},
             device_scale_factor=1,
         )
         page.goto(page_path.resolve().as_uri(), wait_until="networkidle")
         page.screenshot(
             path=str(image_path),
             full_page=False,
-            clip={"x": 0, "y": 0, "width": EXPORT_WIDTH, "height": EXPORT_HEIGHT},
+            clip={"x": 0, "y": 0, "width": export_width, "height": export_height},
         )
         browser.close()
     from PIL import Image
 
     with Image.open(image_path) as image:
-        if image.size != (EXPORT_WIDTH, EXPORT_HEIGHT):
+        if image.size != (export_width, export_height):
             raise RuntimeError(
-                f"Expected a {EXPORT_WIDTH}x{EXPORT_HEIGHT} PNG, got {image.width}x{image.height}"
+                f"Expected a {export_width}x{export_height} PNG, got {image.width}x{image.height}"
             )
 
 
@@ -281,6 +305,8 @@ def main() -> None:
     parser.add_argument("--author", help="Override the pilot from the decklist About section")
     parser.add_argument("--event", help="Override the event from the decklist About section")
     parser.add_argument("--title", help="Override the deck title")
+    parser.add_argument("--export-width", type=int, default=EXPORT_WIDTH, help="PNG width (default: 1080)")
+    parser.add_argument("--export-height", type=int, default=EXPORT_HEIGHT, help="PNG height (default: 1440)")
     parser.add_argument(
         "--export-image",
         nargs="?",
@@ -290,6 +316,8 @@ def main() -> None:
         default="./decklist_new.png",
     )
     args = parser.parse_args()
+    if args.export_width < 1 or args.export_height < 1:
+        parser.error("export dimensions must be positive")
     if args.columns.lower() != "auto":
         try:
             columns = int(args.columns)
@@ -311,15 +339,26 @@ def main() -> None:
         thumbnail_path.write_bytes(fetch_card_art(settings["thumbnail"], session).read_bytes())
     main_cards = load_cards(main_entries, session)
     side_cards = load_cards(side_entries, session)
-    write_page(main_cards, side_cards, title, author, event, args.output, columns, thumbnail_path)
+    write_page(
+        main_cards,
+        side_cards,
+        title,
+        author,
+        event,
+        args.output,
+        columns,
+        args.export_width,
+        args.export_height,
+        thumbnail_path,
+    )
     if args.export_image:
         image_output = (
             args.output.with_suffix(".png")
             if args.export_image == "auto"
             else Path(args.export_image)
         )
-        export_image(args.output, image_output)
-        print(f"Saved {image_output} (1080x1440)")
+        export_image(args.output, image_output, args.export_width, args.export_height)
+        print(f"Saved {image_output} ({args.export_width}x{args.export_height})")
     print(f"Saved {args.output} ({len(main_cards)} main entries, {len(side_cards)} sideboard entries)")
 
 

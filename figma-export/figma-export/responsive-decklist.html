@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Decklist di Pinger Tron">
+  <title>Pinger Tron | Lega Pauper Cosenza</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --columns: 5;
+      --brick: #a43f38;
+      --ink: #7e332d;
+      --font-family-helvetica-neue: "Helvetica Neue", sans-serif;
+      --font-family-din-condensed: "DIN Condensed", sans-serif;
+      --type-scale: 1;
+    }
+    @font-face { font-family: "Helvetica Neue"; src: url("../../fonts/Helvetica.ttc") format("truetype"); font-weight: 100 900; }
+    @font-face { font-family: "DIN Condensed"; src: url("../../fonts/DIN Condensed Bold.ttf") format("truetype"); font-weight: 700; }
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+    body { font-family: var(--font-family-helvetica-neue); background: #f8f7f7; }
+    .prova-decklist-1 { width: 100vw; height: 100vh; display: grid; grid-template-rows: minmax(180px, 29%) minmax(0, 71%); background: #f8f7f7; color: white; }
+    .header-74 { position: relative; min-height: 0; overflow: hidden; background: var(--brick); }
+    .header-74::after { content: ""; position: absolute; inset: auto 0 0; height: 28%; background: linear-gradient(to right, rgba(91, 31, 28, .4) 0 67.8%, rgba(49, 22, 21, .62) 67.8% 100%); pointer-events: none; }
+    .header-content { position: relative; z-index: 1; height: 72%; padding: clamp(18px, 3vw, 44px) clamp(20px, 3.2vw, 48px) 0; }
+    .header-thumb { position: absolute; z-index: 0; right: 0; top: 0; width: 32.2%; height: 72%; object-fit: cover; object-position: 62% center; clip-path: polygon(21% 0, 100% 0, 100% 100%, 0 100%); }
+    .header-title { max-width: 64%; margin: 0 0 .1em; font-family: var(--font-family-din-condensed), Impact, sans-serif; font-size: calc(60px * var(--type-scale)); line-height: .98; white-space: nowrap; }
+    .header-author { margin: 0; font-size: calc(32px * var(--type-scale)); line-height: 1.15; }
+    .header-event { position: absolute; left: calc(280px * var(--type-scale)); bottom: 12%; max-width: 30%; margin: 0; font-size: calc(20px * var(--type-scale)); line-height: 1.15; font-weight: 700; }
+    .header-logo { position: absolute; left: calc(34px * var(--type-scale)); bottom: calc(18px * var(--type-scale)); z-index: 2; width: calc(180px * var(--type-scale)); height: auto; }
+    .header-stats { position: absolute; z-index: 2; left: clamp(20px, 3.2vw, 48px); right: clamp(20px, 3.2vw, 48px); bottom: 0; display: grid; grid-template-columns: 5fr 2fr; height: 28%; }
+    .deck-stat { padding-top: clamp(8px, 1.2vw, 18px); }
+    .stat-label { margin-bottom: .5em; font: 700 calc(20px * var(--type-scale))/1.1 var(--font-family-din-condensed), sans-serif; }
+    .type-summary { display: flex; flex-wrap: wrap; gap: clamp(6px, 1vw, 15px); align-items: center; }
+    .type-count { display: inline-flex; align-items: center; gap: .3em; font-size: calc(23px * var(--type-scale)); }
+    .type-count img { width: calc(31px * var(--type-scale)); height: calc(31px * var(--type-scale)); object-fit: contain; }
+    .body-2 { min-height: 0; display: grid; grid-template-columns: minmax(0, 5fr) minmax(170px, 2fr); gap: clamp(8px, 1.5vw, 24px); padding: clamp(10px, 1.8vw, 28px) clamp(20px, 3.2vw, 48px) 0; background: #f8f7f7; }
+    .card-panel { min-width: 0; min-height: 0; align-self: stretch; padding: clamp(8px, 1vw, 16px); border-radius: 3px; }
+    .main-deck { background: rgba(164, 63, 56, .08); }
+    .sideboard { background: rgba(90, 90, 90, .08); --columns: 2 !important; }
+    .card-grid { display: grid; grid-template-columns: repeat(var(--columns), minmax(0, var(--card-width, 1fr))); justify-content: space-between; align-content: start; height: 100%; gap: clamp(4px, .6vw, 10px); }
+    .card { position: relative; width: 100%; min-width: 0; aspect-ratio: 63 / 88; overflow: visible; border-radius: 4px; box-shadow: 3px 4px 2px rgba(0,0,0,.45); background: #e6e6e6; }
+    .card img { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 0; }
+    .copies { position: absolute; right: 0; top: 0; display: grid; place-items: center; min-width: calc(35px * var(--type-scale)); height: calc(32px * var(--type-scale)); padding: 0 calc(6px * var(--type-scale)); background: #fff; color: var(--ink); font: 700 calc(20px * var(--type-scale))/1 var(--font-family-helvetica-neue), sans-serif; }
+    @media (max-aspect-ratio: 4/5) {
+      .prova-decklist-1 { grid-template-rows: minmax(180px, 25%) minmax(0, 75%); }
+      .body-2 { grid-template-columns: 1fr; grid-template-rows: minmax(0, 3fr) minmax(120px, 1fr); overflow: hidden; }
+      .header-title { max-width: 62%; }
+    }
+    @media (max-aspect-ratio: 1/2) {
+      .header-title { font-size: calc(50px * var(--type-scale)); }
+      .header-author { font-size: calc(25px * var(--type-scale)); }
+      .header-event { left: calc(190px * var(--type-scale)); max-width: 42%; }
+      .header-thumb { width: 38%; }
+      .header-stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="prova-decklist-1">
+    <header class="header-74">
+      <img class="header-thumb" src="images/thumbnail.png" alt="">
+      <div class="header-content">
+        <img class="header-logo" src="images/logo-lpc-letter-white.png" alt="Lega Pauper Cosenza">
+        <h1 class="header-title">Pinger Tron</h1>
+        <p class="header-author">Salvatore Postella</p>
+        <p class="header-event">2° Tappa - Autumn Season 1 | Lega Pauper Cosenza</p>
+      </div>
+      <div class="header-stats">
+        <div class="deck-stat"><div class="stat-label">MAIN DECK / 60 Carte</div><div class="type-summary"><span class="type-count"><img src="../../card_type_symbols/creature.png" alt="">8</span><span class="type-count"><img src="../../card_type_symbols/sorcery.png" alt="">1</span><span class="type-count"><img src="../../card_type_symbols/instant.png" alt="">7</span><span class="type-count"><img src="../../card_type_symbols/artifact.png" alt="">27</span><span class="type-count"><img src="../../card_type_symbols/land.png" alt="">17</span></div></div>
+        <div class="deck-stat"><div class="stat-label">SIDEBOARD / 15 Carte</div><div class="type-summary"><span class="type-count"><img src="../../card_type_symbols/instant.png" alt="">13</span><span class="type-count"><img src="../../card_type_symbols/artifact.png" alt="">2</span></div></div>
+      </div>
+    </header>
+    <div class="body-2">
+      <section class="card-panel main-deck" style="--columns:5;--rows:5"><div class="card-grid"><article class="card" title="Bramble Wurm - Creature — Wurm"><img src="../../.card_cache/bramble_wurm.jpg" alt="Bramble Wurm" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Mysidian Elder - Creature — Human Wizard"><img src="../../.card_cache/mysidian_elder.jpg" alt="Mysidian Elder" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Kaervek&#x27;s Torch - Sorcery"><img src="../../.card_cache/kaervek_s_torch.jpg" alt="Kaervek&#x27;s Torch" loading="lazy"></article>
+<article class="card" title="Crop Rotation - Instant"><img src="../../.card_cache/crop_rotation.jpg" alt="Crop Rotation" loading="lazy"></article>
+<article class="card" title="Eviscerator&#x27;s Insight - Instant"><img src="../../.card_cache/eviscerator_s_insight.jpg" alt="Eviscerator&#x27;s Insight" loading="lazy"><span class="copies">x2</span></article>
+<article class="card" title="Ghostly Flicker - Instant"><img src="../../.card_cache/ghostly_flicker.jpg" alt="Ghostly Flicker" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Barrels of Blasting Jelly - Artifact"><img src="../../.card_cache/barrels_of_blasting_jelly.jpg" alt="Barrels of Blasting Jelly" loading="lazy"></article>
+<article class="card" title="Black Mage&#x27;s Rod - Artifact — Equipment"><img src="../../.card_cache/black_mage_s_rod.jpg" alt="Black Mage&#x27;s Rod" loading="lazy"><span class="copies">x2</span></article>
+<article class="card" title="Bonder&#x27;s Ornament - Artifact"><img src="../../.card_cache/bonder_s_ornament.jpg" alt="Bonder&#x27;s Ornament" loading="lazy"></article>
+<article class="card" title="Candy Trail - Artifact — Food Clue"><img src="../../.card_cache/candy_trail.jpg" alt="Candy Trail" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Cryogen Relic - Artifact"><img src="../../.card_cache/cryogen_relic.jpg" alt="Cryogen Relic" loading="lazy"><span class="copies">x2</span></article>
+<article class="card" title="Expedition Map - Artifact"><img src="../../.card_cache/expedition_map.jpg" alt="Expedition Map" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Giant&#x27;s Boulder - Artifact"><img src="../../.card_cache/giant_s_boulder.jpg" alt="Giant&#x27;s Boulder" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Lembas - Artifact — Food"><img src="../../.card_cache/lembas.jpg" alt="Lembas" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Nihil Spellbomb - Artifact"><img src="../../.card_cache/nihil_spellbomb.jpg" alt="Nihil Spellbomb" loading="lazy"></article>
+<article class="card" title="Prophetic Prism - Artifact"><img src="../../.card_cache/prophetic_prism.jpg" alt="Prophetic Prism" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Bojuka Bog - Land"><img src="../../.card_cache/bojuka_bog.jpg" alt="Bojuka Bog" loading="lazy"></article>
+<article class="card" title="Conduit Pylons - Land — Desert"><img src="../../.card_cache/conduit_pylons.jpg" alt="Conduit Pylons" loading="lazy"></article>
+<article class="card" title="Forest - Basic Land — Forest"><img src="../../.card_cache/forest.jpg" alt="Forest" loading="lazy"></article>
+<article class="card" title="Island - Basic Land — Island"><img src="../../.card_cache/island.jpg" alt="Island" loading="lazy"></article>
+<article class="card" title="Polluted Mire - Land"><img src="../../.card_cache/polluted_mire.jpg" alt="Polluted Mire" loading="lazy"></article>
+<article class="card" title="Urza&#x27;s Mine - Land — Urza&#x27;s Mine"><img src="../../.card_cache/urza_s_mine.jpg" alt="Urza&#x27;s Mine" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Urza&#x27;s Power Plant - Land — Urza&#x27;s Power-Plant"><img src="../../.card_cache/urza_s_power_plant.jpg" alt="Urza&#x27;s Power Plant" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Urza&#x27;s Tower - Land — Urza&#x27;s Tower"><img src="../../.card_cache/urza_s_tower.jpg" alt="Urza&#x27;s Tower" loading="lazy"><span class="copies">x4</span></article></div></section>
+      <section class="card-panel sideboard" style="--columns:2;--rows:3"><div class="card-grid"><article class="card" title="Cast Down - Instant"><img src="../../.card_cache/cast_down.jpg" alt="Cast Down" loading="lazy"><span class="copies">x3</span></article>
+<article class="card" title="Fiery cannonade - Instant"><img src="../../.card_cache/fiery_cannonade.jpg" alt="Fiery cannonade" loading="lazy"><span class="copies">x2</span></article>
+<article class="card" title="Hydroblast - Instant"><img src="../../.card_cache/hydroblast.jpg" alt="Hydroblast" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Moment&#x27;s Peace - Instant"><img src="../../.card_cache/moment_s_peace.jpg" alt="Moment&#x27;s Peace" loading="lazy"><span class="copies">x4</span></article>
+<article class="card" title="Nihil Spellbomb - Artifact"><img src="../../.card_cache/nihil_spellbomb.jpg" alt="Nihil Spellbomb" loading="lazy"><span class="copies">x2</span></article></div></section>
+    </div>
+  </main>
+  <script>
+    (() => {
+      const fitCards = () => {
+        const typeScale = Math.min(window.innerWidth / 1080, window.innerHeight / 1440);
+        document.documentElement.style.setProperty('--type-scale', typeScale);
+        document.querySelectorAll('.card-panel').forEach((panel) => {
+          const grid = panel.querySelector('.card-grid');
+          const cards = grid ? grid.querySelectorAll('.card').length : 0;
+          const columns = Number.parseInt(getComputedStyle(panel).getPropertyValue('--columns'), 10);
+          if (!grid || !cards || !columns) return;
+          const styles = getComputedStyle(grid);
+          const columnGap = parseFloat(styles.columnGap) || 0;
+          const rowGap = parseFloat(styles.rowGap) || 0;
+          const isSideboard = panel.classList.contains('sideboard');
+          let bestColumns = isSideboard ? 2 : columns;
+          let bestCardWidth = 0;
+          const maxColumns = isSideboard ? 2 : Math.min(cards, 12);
+          for (let candidate = 1; candidate <= maxColumns; candidate += 1) {
+            const rows = Math.ceil(cards / candidate);
+            const widthByColumns = (grid.clientWidth - columnGap * (candidate - 1)) / candidate;
+            const widthByRows = ((grid.clientHeight - rowGap * (rows - 1)) / rows) * 63 / 88;
+            const cardWidth = Math.min(widthByColumns, widthByRows);
+            if (cardWidth > bestCardWidth) {
+              bestCardWidth = cardWidth;
+              bestColumns = candidate;
+            }
+          }
+          grid.style.setProperty('--columns', bestColumns);
+          grid.style.setProperty('--card-width', `${Math.max(0, bestCardWidth)}px`);
+        });
+      };
+      fitCards();
+      window.addEventListener('resize', fitCards);
+      window.addEventListener('load', fitCards);
+    })();
+  </script>
+</body>
+</html>
