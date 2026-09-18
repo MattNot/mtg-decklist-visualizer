@@ -38,7 +38,7 @@
     .body-2 { min-height: 0; display: grid; grid-template-columns: minmax(0, 5fr) minmax(170px, 2fr); gap: clamp(8px, 1.5vw, 24px); padding: clamp(10px, 1.8vw, 28px) clamp(20px, 3.2vw, 48px) 0; background: #f8f7f7; }
     .card-panel { min-width: 0; min-height: 0; align-self: stretch; padding: clamp(8px, 1vw, 16px); border-radius: 3px; }
     .main-deck { background: rgba(164, 63, 56, .08); }
-    .sideboard { background: rgba(90, 90, 90, .08); --columns: 2 !important; }
+    .sideboard { background: rgba(90, 90, 90, .08); --columns: 2; }
     .card-grid { display: grid; grid-template-columns: repeat(var(--columns), minmax(0, var(--card-width, 1fr))); justify-content: space-between; align-content: start; height: 100%; gap: clamp(4px, .6vw, 10px); }
     .card { position: relative; width: 100%; min-width: 0; aspect-ratio: 63 / 88; overflow: visible; border-radius: 4px; box-shadow: 3px 4px 2px rgba(0,0,0,.45); background: #e6e6e6; }
     .card img { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 0; }
@@ -120,7 +120,7 @@
           const isSideboard = panel.classList.contains('sideboard');
           let bestColumns = isSideboard ? 2 : columns;
           let bestCardWidth = 0;
-          const maxColumns = isSideboard ? 2 : Math.min(cards, 12);
+          const maxColumns = Math.min(cards, 12);
           for (let candidate = 1; candidate <= maxColumns; candidate += 1) {
             const rows = Math.ceil(cards / candidate);
             const widthByColumns = (grid.clientWidth - columnGap * (candidate - 1)) / candidate;
