@@ -282,6 +282,7 @@ def export_image(page_path: Path, image_path: Path, export_width: int, export_he
             device_scale_factor=1,
         )
         page.goto(page_path.resolve().as_uri(), wait_until="networkidle")
+        page.evaluate("document.fonts.ready")
         page.screenshot(
             path=str(image_path),
             full_page=False,
