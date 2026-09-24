@@ -15,16 +15,17 @@
         .prova-decklist-1 { position: absolute; width: 768px; height: 1024px; overflow: hidden; transform: scale(var(--canvas-scale-x), var(--canvas-scale-y)); transform-origin: top left; background: #f8f7f7; color: white; }
     .header-74 { position: relative; height: 292px; overflow: hidden; background: var(--brick); }
     .header-74::after { content: ""; position: absolute; left: 0; right: 0; top: 211px; height: 81px; background: linear-gradient(to right, rgba(91, 31, 28, .4) 0 var(--header-split), rgba(49, 22, 21, .62) var(--header-split) 100%); pointer-events: none; }
-    .header-content { position: relative; z-index: 1; height: 211px; padding: 32px 34px 0; }
+    .header-content { position: relative; z-index: 1; height: 211px; padding: 32px 34px 0; display: flex; flex-direction: column; }
     .header-thumb { position: absolute; z-index: 0; right: 0; top: 0; width: 32.2%; height: 211px; object-fit: cover; object-position: 62% center; clip-path: polygon(21% 0, 100% 0, 100% 100%, 0 100%); }
-    .header-title { position: relative; max-width: 470px; margin: 0 0 2px; font-family: var(--font-family-din-condensed), Impact, sans-serif; font-size: 43px; line-height: .98; letter-spacing: 0; white-space: nowrap; }
-    .header-author { margin: 0; font-size: 23px; line-height: 1.15; }
-    .header-event { position: absolute; left: 180px; bottom: 20px; max-width: 260px; margin: 0; padding: 0; font-size: 14px; line-height: 1.15; font-weight: 700; }
-    .header-logo { position: absolute; left: 34px; bottom: 18px; z-index: 2; width: 126px; height: auto; }
+    .header-title { position: relative; max-width: 470px; margin: 0; font-family: var(--font-family-din-condensed), Impact, sans-serif; font-size: 48px; line-height: .98; letter-spacing: 0; white-space: nowrap; }
+    .header-author { max-width: 470px; margin: 6px 0 0; font-size: 26px; line-height: 1.15; font-weight: 700; overflow-wrap: anywhere; }
+    .header-bottom { margin-top: auto; margin-bottom: 8px; display: flex; align-items: center; gap: 14px; }
+    .header-logo { flex-shrink: 0; width: 126px; height: auto; }
+    .header-event { max-width: 260px; margin: 0; padding: 0; font-size: 16px; line-height: 1.15; font-weight: 700; }
     .header-stats { position: absolute; z-index: 2; left: 34px; right: 34px; bottom: 0; display: grid; grid-template-columns: 5fr 2fr; gap: 0; height: 81px; }
     .deck-stat { padding: 15px 0 0; }
     .deck-stat + .deck-stat { padding-left: 0; }
-    .stat-label { margin-bottom: 9px; font: 700 14px/1.1 var(--font-family-din-condensed), sans-serif; }
+    .stat-label { margin-bottom: 9px; font: 700 14px/1.1 var(--font-family-helvetica-neue), sans-serif; }
     .type-summary { display: flex; flex-wrap: wrap; gap: 15px; align-items: center; }
     .type-count { display: inline-flex; align-items: center; gap: 5px; font-size: 16px; }
     .type-count img { width: 22px; height: 22px; object-fit: contain; }
@@ -38,7 +39,7 @@
     .card:hover { z-index: 2; transform: translateY(-3px); }
     .card img { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 0; }
     .copies { position: absolute; right: 0; top: 0; display: grid; place-items: center; min-width: 25px; height: 23px; padding: 0 4px; background: #fff; color: var(--ink); font: 700 14px/1 var(--font-family-helvetica-neue), sans-serif; }
-    @media (max-width: 600px) { .prova-decklist-1 { min-height: 100vh; } .header-content { padding-left: 22px; padding-right: 22px; } .header-title { font-size: clamp(28px, 5.6vw, 43px); } .header-event { left: 122px; max-width: 210px; font-size: 11px; } .header-logo { left: 22px; width: 88px; } .header-stats { left: 22px; right: 22px; } .body-2 { gap: 10px; padding-left: 22px; padding-right: 22px; } .deck-stat + .deck-stat { padding-left: 12px; } .type-summary { gap: 8px; } }
+    @media (max-width: 600px) { .prova-decklist-1 { min-height: 100vh; } .header-content { padding-left: 22px; padding-right: 22px; } .header-title { font-size: clamp(30px, 6vw, 48px); } .header-author { max-width: 100%; font-size: clamp(18px, 4vw, 26px); } .header-event { max-width: 210px; font-size: 13px; } .header-logo { width: 88px; } .header-stats { left: 22px; right: 22px; } .body-2 { gap: 10px; padding-left: 22px; padding-right: 22px; } .deck-stat + .deck-stat { padding-left: 12px; } .type-summary { gap: 8px; } }
   </style>
 </head>
 <body>
@@ -46,10 +47,12 @@
     <header class="header-74">
       <img class="header-thumb" src="images/thumbnail.png" alt="">
       <div class="header-content">
-        <img class="header-logo" src="images/logo-lpc-letter-white.png" alt="Lega Pauper Cosenza">
         <h1 class="header-title">Pinger Tron</h1>
-        <p class="header-author">Salvatore Postella</p>
-        <p class="header-event">2° Tappa - Autumn Season 1 | Lega Pauper Cosenza</p>
+        <h3 class="header-author">Salvatore Postella</h3>
+        <div class="header-bottom">
+          <img class="header-logo" src="images/logo-lpc-letter-white.png" alt="Lega Pauper Cosenza">
+          <p class="header-event">2° Tappa - Autumn Season 1 | Lega Pauper Cosenza</p>
+        </div>
       </div>
             <div class="header-stats">
                 <div class="deck-stat"><div class="stat-label">MAIN DECK / 60 Carte</div><div class="type-summary"><span class="type-count"><img src="../../card_type_symbols/creature.png" alt="">8</span><span class="type-count"><img src="../../card_type_symbols/sorcery.png" alt="">1</span><span class="type-count"><img src="../../card_type_symbols/instant.png" alt="">7</span><span class="type-count"><img src="../../card_type_symbols/artifact.png" alt="">27</span><span class="type-count"><img src="../../card_type_symbols/land.png" alt="">17</span></div></div>
@@ -94,9 +97,9 @@
         const canvas = document.querySelector('.prova-decklist-1');
         const baseWidth = 768;
         const baseHeight = 1024;
-        const exportWidth = 1000;
-        const exportHeight = 1000;
-        const exportScale = 0.9765625;
+        const exportWidth = 1080;
+        const exportHeight = 1440;
+        const exportScale = 1.40625;
         const fitCards = () => {
             const canvasRect = canvas.getBoundingClientRect();
             const scaleX = canvasRect.width / canvas.offsetWidth;
