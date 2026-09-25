@@ -180,7 +180,7 @@ def write_page(
     .type-summary {{ display: flex; flex-wrap: wrap; gap: 15px; align-items: center; }}
     .type-count {{ display: inline-flex; align-items: center; gap: 5px; font-size: 16px; }}
     .type-count img {{ width: 22px; height: 22px; object-fit: contain; }}
-    .body-2 {{ display: grid; grid-template-columns: 5fr 2fr; gap: 18px; min-height: 732px; padding: 20px 34px 0; background: #f8f7f7; }}
+    .body-2 {{ display: grid; grid-template-columns: 5fr 2fr; gap: 18px; min-height: 732px; padding: 20px 34px 0; background: linear-gradient(rgba(248, 247, 247, .3), rgba(248, 247, 247, .3)) 0 0 / auto no-repeat, url("{thumbnail}") center / cover no-repeat; background-color: #f8f7f7; }}
     .card-panel {{ align-self: start; padding: 12px 10px 16px; border-radius: 3px; }}
     .main-deck {{ background: rgba(164, 63, 56, .08); }}
     .sideboard {{ background: rgba(90, 90, 90, .08); }}

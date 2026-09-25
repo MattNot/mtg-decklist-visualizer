@@ -1,38 +1,33 @@
 About
-name Pinger Tron
-pilot Salvatore Postella
+name Monster Tron
+pilot Alessio Palermo
 Event 2° Tappa - Autumn Season 1 | Lega Pauper Cosenza
-Thumbnail Mysidian Elder
+Thumbnail Urza's Tower
 
 Deck
-4 Giant's Boulder
-1 Barrels of Blasting Jelly
-2 Black Mage's Rod
-1 Bojuka Bog
-1 Bonder's Ornament
-4 Bramble Wurm
-4 Candy Trail
-1 Conduit Pylons
-1 Crop Rotation
-2 Cryogen Relic
-2 Eviscerator's Insight
-4 Expedition Map
-1 Forest
-4 Ghostly Flicker
-1 Island
-1 Kaervek's Torch
-4 Lembas
-4 Mysidian Elder
-1 Nihil Spellbomb
-1 Polluted Mire
-4 Prophetic Prism
-4 Urza's Mine
-4 Urza's Power Plant
+4 Barrels of Blasting Jelly
 4 Urza's Tower
+4 Urza's Power Plant
+4 Bramble Wurm
+2 Conduit Pylons
+4 Urza's Mine
+2 Pulse of Murasa
+2 Forest
+2 Generous Ent
+4 Giant's Boulder
+4 Malevolent Rumble
+3 Nyxborn Hydra
+4 Plunder the Trollshaws
+4 Expedition Map
+3 Crop Rotation
+4 Bonder's Ornament
+1 Bojuka Bog
+1 Wooded Ridgeline
+4 Writhing Chrysalis
 
 Sideboard
-2 Fiery cannonade
-3 Cast Down
-4 Hydroblast
-4 Moment's Peace
-2 Nihil Spellbomb
+3 Faerie Macabre
+2 Coalition Honor Guard
+4 Breath Weapon
+4 Blue Elemental Blast
+2 Ancient Grudge

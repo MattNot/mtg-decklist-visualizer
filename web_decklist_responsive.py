@@ -98,7 +98,7 @@ def write_responsive_page(
     .type-summary {{ display: flex; flex-wrap: wrap; gap: clamp(6px, 1vw, 15px); align-items: center; }}
     .type-count {{ display: inline-flex; align-items: center; gap: .3em; font-size: calc(23px * var(--type-scale)); }}
     .type-count img {{ width: calc(31px * var(--type-scale)); height: calc(31px * var(--type-scale)); object-fit: contain; }}
-    .body-2 {{ min-height: 0; display: grid; grid-template-columns: minmax(0, 5fr) minmax(170px, 2fr); gap: clamp(8px, 1.5vw, 24px); padding: clamp(10px, 1.8vw, 28px) clamp(20px, 3.2vw, 48px) 0; background: #f8f7f7; }}
+    .body-2 {{ min-height: 0; display: grid; grid-template-columns: minmax(0, 5fr) minmax(170px, 2fr); gap: clamp(8px, 1.5vw, 24px); padding: clamp(10px, 1.8vw, 28px) clamp(20px, 3.2vw, 48px) 0; background: linear-gradient(rgba(248, 247, 247, .3), rgba(248, 247, 247, .3)) 0 0 / auto no-repeat, url("{thumbnail}") center / cover no-repeat; background-color: #f8f7f7; }}
     .card-panel {{ min-width: 0; min-height: 0; align-self: stretch; padding: clamp(8px, 1vw, 16px); border-radius: 3px; }}
     .main-deck {{ background: rgba(164, 63, 56, .08); }}
     .sideboard {{ background: rgba(90, 90, 90, .08); --columns: 2; }}
