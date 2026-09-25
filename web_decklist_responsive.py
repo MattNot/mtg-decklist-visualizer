@@ -105,7 +105,8 @@ def write_responsive_page(
     .card-grid {{ display: grid; grid-template-columns: repeat(var(--columns), minmax(0, var(--card-width, 1fr))); justify-content: space-between; align-content: start; height: 100%; gap: clamp(4px, .6vw, 10px); }}
     .card {{ position: relative; width: 100%; min-width: 0; aspect-ratio: 63 / 88; overflow: visible; border-radius: 4px; box-shadow: 3px 4px 2px rgba(0,0,0,.45); background: #e6e6e6; }}
     .card img {{ display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 0; }}
-    .copies {{ position: absolute; left: calc(6px * var(--type-scale)); bottom: calc(6px * var(--type-scale)); display: grid; place-items: center; min-width: calc(35px * var(--type-scale)); height: calc(32px * var(--type-scale)); padding: 0 calc(6px * var(--type-scale)); border-radius: calc(4px * var(--type-scale)); background: var(--brick); color: #fff; font: 700 calc(20px * var(--type-scale))/1 var(--font-family-helvetica-neue), sans-serif; box-shadow: 2px 3px 2px rgba(0,0,0,.4); }}
+    .copies {{ position: absolute; left: calc(6px * var(--type-scale)); bottom: calc(6px * var(--type-scale)); display: grid; place-items: center; min-width: calc(35px * var(--type-scale)); height: calc(32px * var(--type-scale)); padding: 0 calc(6px * var(--type-scale)); border-radius: calc(8px * var(--type-scale)); background: var(--ink); color: #fff; font: 700 calc(20px * var(--type-scale))/1 var(--font-family-helvetica-neue), sans-serif; text-align: center; box-shadow: 2px 3px 2px rgba(0,0,0,.4); }}
+    .copies-num {{ display: inline-block; transform: translateY(0.08em); }}
     @media (max-aspect-ratio: 4/5) {{
       .prova-decklist-1 {{ grid-template-rows: minmax(180px, 25%) minmax(0, 75%); }}
       .body-2 {{ grid-template-columns: 1fr; grid-template-rows: minmax(0, 3fr) minmax(120px, 1fr); overflow: hidden; }}
