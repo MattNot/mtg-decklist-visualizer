@@ -81,7 +81,7 @@ def render_cards(cards: list[dict[str, object]], output: Path) -> str:
         image = html.escape(relative_asset(Path(card["image"]), output), quote=True)
         type_line = html.escape(str(card["type_line"]))
         quantity = int(card["quantity"])
-        badge = f'<span class="copies">x{quantity}</span>' if quantity > 1 else ""
+        badge = f'<span class="copies"><span class="copies-num">x{quantity}</span></span>' if quantity > 1 else ""
         rendered.append(
             f'<article class="card" title="{name} - {type_line}">'
             f'<img src="{image}" alt="{name}" loading="lazy">{badge}</article>'
